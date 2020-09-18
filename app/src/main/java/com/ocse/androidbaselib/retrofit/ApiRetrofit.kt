@@ -1,0 +1,53 @@
+package com.ocse.androidbaselib.retrofit
+
+import android.util.Log
+import com.ocse.androidbaselib.bean.UserBean
+import com.ocse.androidbaselib.bean.VersionBean
+import com.ocse.baseandroid.retrofit.base.BaseRetrofit
+import com.ocse.baseandroid.utils.SharePerferenceUtil
+import io.reactivex.Observable
+import kotlin.collections.HashMap
+
+class ApiRetrofit : BaseRetrofit() {
+    companion object {
+        val instacne by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            ApiRetrofit()
+        }
+    }
+
+    private fun getApiService(): ApiService {
+        val token = SharePerferenceUtil.getString("token")
+            Log.e("hu--token", token)
+        val params: HashMap<String, Any> = HashMap()
+        if (token.isNullOrEmpty()) {
+            params["csrf-csrf"] = "csrf-csrf"
+            params["Content-Type"] = "application/x-www-form-urlencoded"
+
+        } else {
+            params["csrf-csrf"] = "csrf-csrf"
+            params["Authorization"] = "Bearer  $token"
+        }
+        getInstance().addHeader(params)
+        return getInstance().createService(ApiService::class.java)
+    }
+
+    fun login(
+        user: String,
+        password: String
+    ) : Observable<UserBean> {
+        val params: MutableMap<String, Any> = HashMap()
+        params["username"] = user
+        params["grant_type"] = "password"
+        params["scope"] = "read"
+        params["password"] = password
+        params["client_id"] = "my-client"
+        params["openid"] = "123456789"
+
+       return switchSchedulers(getApiService().login(params))
+    }
+    fun getversion(
+    ) : Observable<VersionBean> {
+        val params: MutableMap<String, Any> = HashMap()
+        return switchSchedulers(getApiService().getAppVersion(params))
+    }
+}
