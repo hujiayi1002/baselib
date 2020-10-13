@@ -15,8 +15,8 @@ import io.reactivex.functions.Consumer
 abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     BaseViewModelActivity(getLayoutId) {
     var hash: Int = 0
-    var lastClickTime: Long = 0
-    var SPACE_TIME: Long = 2000
+    private var lastClickTime: Long = 0
+    private var spaceTime: Long = 2000
     open val layout = getLayoutId
     open var dataBinding: V? = null
     private var mCompositeDisposable = CompositeDisposable()
@@ -43,7 +43,7 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
                 clickAction()
             } else {
                 val currentTime = System.currentTimeMillis()
-                if (currentTime - lastClickTime > SPACE_TIME) {
+                if (currentTime - lastClickTime > spaceTime) {
                     lastClickTime = System.currentTimeMillis()
                     clickAction()
                 }

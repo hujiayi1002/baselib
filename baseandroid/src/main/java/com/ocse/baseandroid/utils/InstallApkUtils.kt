@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Message
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -26,6 +27,9 @@ class InstallApkUtils {
         private val DOWNSTATE = 1
         private val DOWNOVER = 2
         private val DOWNFAILE = 3
+        init {
+            installPremission()
+        }
         val versionCode: Int
             get() {
                 try {
@@ -46,7 +50,7 @@ class InstallApkUtils {
                 return null
             }
 
-        fun checkVersion(path: String?, bt: String, isForce: Boolean) {
+        fun checkVersion(urlPath: String?, bt: String, isForce: Boolean) {
             val view = LayoutInflater.from(ObtainApplication.getApp().applicationContext)
                 .inflate(R.layout.layout_update_dialog, null)
             val builder =
@@ -60,17 +64,18 @@ class InstallApkUtils {
             val dialog = builder.create()
             view.tv_no.setOnClickListener { dialog.dismiss() }
             view.tv_sure.setOnClickListener {
-                downLoadApk(path, bt)
+                downLoadApk(urlPath, bt)
                 dialog.dismiss()
 
             }
             dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
             if (!dialog.isShowing)
                 dialog.show()
         }
 
 
-        private fun downLoadApk(path: String?, bt: String) {
+        private fun downLoadApk(urlPath: String?, bt: String) {
             val view =
                 LayoutInflater.from(ObtainApplication.getApp())
                     .inflate(R.layout.download_layout, null)
@@ -80,7 +85,7 @@ class InstallApkUtils {
                     .setView(view)
                     .setCancelable(false).show()
 
-            DownLoadFileUtils.download(path, bt, object : DownLoadFileUtils.OnDownloadListener {
+            DownLoadFileUtils.download(urlPath, bt, object : DownLoadFileUtils.OnDownloadListener {
                 override fun onDownloading(progress: Int) {
                     val message = Message()
                     message.what = DOWNSTATE
@@ -94,6 +99,7 @@ class InstallApkUtils {
 
                 override fun onDownloadSuccess(file: File) {
                     handler.sendEmptyMessage(DOWNOVER)
+
                     installApk(file)
 
                 }
@@ -115,8 +121,25 @@ class InstallApkUtils {
             }
         }
 
+         fun installPremission() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val isgtand = ObtainApplication.getApp().packageManager.canRequestPackageInstalls()
+                if (isgtand) {
+                } else {
+                    val packageURI =
+                        Uri.parse("package:" + ObtainApplication.getApp().packageName);
+                    //注意这个是8.0新API
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                        packageURI
+                    )
+                    ObtainApplication.getApp().startActivity(intent)
+                }
+            }
+        }
 
         private fun installApk(file: File) {
+
             val intent = Intent(Intent.ACTION_VIEW)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val contentUri =

@@ -15,15 +15,17 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".base.BaseApplication"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
+        <activity android:name=".utils.WordViewAcivity"></activity>
+
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt" >
-        </service>
+            android:process=":dexopt"></service>
 
         <provider
             android:name="androidx.core.content.FileProvider"

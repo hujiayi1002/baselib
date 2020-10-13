@@ -1,14 +1,13 @@
-package com.ocse.henan.cloudcity.base
+package com.ocse.baseandroid.base
 
 import android.os.Bundle
-import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 /**
  * BaseFragment，处理ViewModelProvider的初始化
  * */
-class BaseFragment:Fragment(){
+open class BaseFragment:Fragment(){
     private  var viewModelProvider: ViewModelProvider?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
