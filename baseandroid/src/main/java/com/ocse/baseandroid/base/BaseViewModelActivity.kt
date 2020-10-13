@@ -19,6 +19,7 @@ open abstract class BaseViewModelActivity(getLayoutId: Int) : AppCompatActivity(
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         viewModelProvider = getViewModelProvider()
+        loadingView= LoadingView(this)
     }
 
     /**
@@ -51,7 +52,7 @@ open abstract class BaseViewModelActivity(getLayoutId: Int) : AppCompatActivity(
 
     }
 
-    open  fun loadingDissmiss() {
+    open  fun loadingDismiss() {
         loadingView.dismiss()
     }
 

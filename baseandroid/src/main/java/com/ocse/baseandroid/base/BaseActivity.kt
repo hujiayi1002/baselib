@@ -14,7 +14,7 @@ import io.reactivex.functions.Consumer
 
 abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     BaseViewModelActivity(getLayoutId) {
-    var hash: Int = 0
+    private var hash: Int = 0
     private var lastClickTime: Long = 0
     private var spaceTime: Long = 2000
     open val layout = getLayoutId
