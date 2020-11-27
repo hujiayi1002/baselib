@@ -1,0 +1,48 @@
+    var beans = ArrayList<DataEntity>()
+
+
+
+ private fun getNode(entity: ChildNodeBean) {
+        val bean = Entity()
+        bean.id = entity.id
+        bean.pid = entity.pid
+        bean.name = entity.name
+        beans.add(bean)
+        if (entity.childNode.size == 0) {
+            return
+        }
+        for (i in entity.childNode.indices) {
+            getNode(entity.childNode[i])
+        }
+    }
+
+    使用
+
+    var mDatas = ArrayList<Node<Any, Any>>
+
+
+        for (i in beans.indices) {
+                    if (beans[i].pid == "0") {
+                        mDatas.add(
+                            Node(
+                                beans[i].id.toString(),
+                                "-1",
+                                beans[i].name
+                            )
+                        )
+                    } else {
+                        mDatas.add(
+                            Node(
+                                beans[i].id.toString(),
+                                beans[i].pid.toString(),
+                                beans[i].name
+                            )
+                        )
+                    }
+                }
+
+                val adapter = TreeAdapter(
+                    list, mContext, mDatas, 0, R.mipmap.tree_ex,
+                    R.mipmap.tree_ec,
+                    onClickListener
+                )
