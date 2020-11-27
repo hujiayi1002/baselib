@@ -9,14 +9,9 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * 基础ViewModel类，管理LiveData
  * */
-open class BaseViewModel<T> : ViewModel {
+open class BaseViewModel<T> : ViewModel() {
     private var maps: MutableMap<String, MutableLiveData<T>> = ConcurrentHashMap()
     val compositeDisposable by lazy { CompositeDisposable() }
-
-    constructor() {
-        //初始化集合(线程安全)
-
-    }
 
     /**
      * 通过指定的数据实体类获取对应的MutableLiveData类
@@ -26,7 +21,7 @@ open class BaseViewModel<T> : ViewModel {
      */
 
 
-    inline fun get(clazz: Class<T>): MutableLiveData<T> {
+    inline fun get(clazz: T): MutableLiveData<T> {
         return get(null, clazz)
     }
 
@@ -38,9 +33,9 @@ open class BaseViewModel<T> : ViewModel {
      * @return
      */
 
-    fun get(key: String?, clazz: Class<T>): MutableLiveData<T> {
+    fun get(key: String?, clazz: T): MutableLiveData<T> {
         var keyName = if (key.isNullOrEmpty()) {
-            clazz.canonicalName.toString()
+            clazz.toString()
         } else {
             key
         }

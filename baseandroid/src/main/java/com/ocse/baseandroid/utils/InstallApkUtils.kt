@@ -33,8 +33,8 @@ class InstallApkUtils {
         val versionCode: Int
             get() {
                 try {
-                    return ObtainApplication.getApp().packageManager
-                        .getPackageInfo(ObtainApplication.getApp().packageName, 0).versionCode
+                    return ObtainApplication.getApp()!!.packageManager
+                        .getPackageInfo(ObtainApplication.getApp()!!.packageName, 0).versionCode
                 } catch (ignored: PackageManager.NameNotFoundException) {
                 }
                 return 0
@@ -43,15 +43,15 @@ class InstallApkUtils {
         private val versionName: String?
             private get() {
                 try {
-                    return ObtainApplication.getApp().packageManager
-                        .getPackageInfo(ObtainApplication.getApp().packageName, 0).versionName
+                    return ObtainApplication.getApp()!!.packageManager
+                        .getPackageInfo(ObtainApplication.getApp()!!.packageName, 0).versionName
                 } catch (ignored: PackageManager.NameNotFoundException) {
                 }
                 return null
             }
 
         fun checkVersion(urlPath: String?, bt: String, isForce: Boolean) {
-            val view = LayoutInflater.from(ObtainApplication.getApp().applicationContext)
+            val view = LayoutInflater.from(ObtainApplication.getApp()!!.applicationContext)
                 .inflate(R.layout.layout_update_dialog, null)
             val builder =
                 AlertDialog.Builder(
@@ -86,6 +86,7 @@ class InstallApkUtils {
                     .setCancelable(false).show()
 
             DownLoadFileUtils.download(urlPath, bt, object : DownLoadFileUtils.OnDownloadListener {
+
                 override fun onDownloading(progress: Int) {
                     val message = Message()
                     message.what = DOWNSTATE
@@ -123,17 +124,17 @@ class InstallApkUtils {
 
          fun installPremission() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val isgtand = ObtainApplication.getApp().packageManager.canRequestPackageInstalls()
+                val isgtand = ObtainApplication. getApp()!!.packageManager.canRequestPackageInstalls()
                 if (isgtand) {
                 } else {
                     val packageURI =
-                        Uri.parse("package:" + ObtainApplication.getApp().packageName);
+                        Uri.parse("package:" + ObtainApplication. getApp()!!.packageName);
                     //注意这个是8.0新API
                     val intent = Intent(
                         Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
                         packageURI
                     )
-                    ObtainApplication.getApp().startActivity(intent)
+                    ObtainApplication. getApp()!!.startActivity(intent)
                 }
             }
         }
@@ -144,8 +145,8 @@ class InstallApkUtils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val contentUri =
                     FileProvider.getUriForFile(
-                        ObtainApplication.getApp(),
-                        ObtainApplication.getApp().packageName + ".fileprovider",
+                        ObtainApplication. getApp()!!,
+                        ObtainApplication. getApp()!!.packageName + ".fileprovider",
                         file
                     )
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

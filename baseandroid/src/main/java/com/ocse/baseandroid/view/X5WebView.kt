@@ -1,9 +1,7 @@
 package com.ocse.baseandroid.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.util.AttributeSet
 import com.ocse.baseandroid.utils.ObtainApplication
 import com.tencent.smtt.export.external.interfaces.SslError
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler
@@ -15,10 +13,7 @@ import com.tencent.smtt.sdk.WebViewClient
 /**
  * @author 11729
  */
-class X5WebView @SuppressLint("SetJavaScriptEnabled") constructor(
-    arg0: Context?,
-    arg1: AttributeSet?
-) : WebView(arg0, arg1) {
+class X5WebView(p0: Context?) : WebView(p0) {
     private val client: WebViewClient =
         object : WebViewClient() {
             /**
@@ -70,7 +65,7 @@ class X5WebView @SuppressLint("SetJavaScriptEnabled") constructor(
         webSetting.loadsImagesAutomatically = true
         webSetting.setGeolocationEnabled(true)
         webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
-        val appCachePath: String = ObtainApplication.getApp().cacheDir.absolutePath
+        val appCachePath: String = ObtainApplication.getApp()?.cacheDir?.absolutePath!!
         webSetting.setAppCachePath(appCachePath)
         webSetting.allowFileAccess = true
         webSetting.setAppCacheEnabled(true)

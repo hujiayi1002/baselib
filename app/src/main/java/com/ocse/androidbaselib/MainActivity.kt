@@ -19,10 +19,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var vm: BaseModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getPermission()
         vm = get(BaseModel::class.java)
         vm.userMutableLiveData.observe(this,
-            Observer<UserBean> {
+            Observer {
+                it as UserBean
                 log("ActivityA中接收user：${it.access_token}");
                 dataBinding?.user = it
             })
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val sd = ArrayList<String>()
         repeat(sd.size) {  }
         textView.setOnClickListener {
-            vm.getUser()
+            vm.user
 //            val intent = Intent(this, MainActivity2::class.java)
 //            // create the transition animation - the images in the layouts
 //            // of both activities are defined with android:transitionName="robot"

@@ -30,6 +30,20 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    //    //修改生成的最终文件名
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def fileName
+            def date = new Date()
+            def formattedDate = date.format('yyyyMMdd')
+            if (variant.buildType.name == 'release') {
+                fileName = "${variant.mergedFlavor.versionName}_release_${formattedDate}.apk"
+            } else if (variant.buildType.name == 'debug') {
+                fileName = "${variant.mergedFlavor.versionName}_debug_${formattedDate}.apk"
+            }
+            outputFileName = fileName;
+        }
+    }
 }
 
 dependencies {

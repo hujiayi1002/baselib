@@ -23,8 +23,17 @@ android {
     }
     buildTypes {
         release {
+            resValue "string", "app_real_name", "baselib"
+            // 本地
+            buildConfigField "String", "BASE_VUE_URL", "\"http://10.81.108.75:8083/#/\"" // 本地
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            resValue "string", "app_real_name", "baselib"
+            buildConfigField "String", "API_HOST", "\"http://10.81.108.70:8090/\"" //API Host
+            buildConfigField "String", "VUE_URL", "\"http://10.81.108.70:8090/\""
+            buildConfigField "String", "DOWNLOAD_HOST", "\"http://10.81.108.70:8090/mobile/download?id=\""
         }
     }
     compileOptions {
@@ -75,5 +84,16 @@ dependencies {
     api 'com.github.kittinunf.fuel:fuel:2.2.0'
 
     api files('libs\\pinyin4j-2.5.0.jar')
+
+    api 'com.github.chaychan:BottomBarLayout:1.2.0'//
+
+// if u use AndroidX, use the following
+
+    api 'com.blankj:utilcodex:1.29.0'//
+
+    api 'org.greenrobot:eventbus:3.2.0'//eventbus
+
+    api 'com.github.chrisbanes:PhotoView:2.3.0'//缩放图片
+
 
 }

@@ -10,7 +10,7 @@ import kotlin.collections.HashMap
 
 class ApiRetrofit : BaseRetrofit() {
     companion object {
-        val instacne by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             ApiRetrofit()
         }
     }
@@ -27,8 +27,8 @@ class ApiRetrofit : BaseRetrofit() {
             params["csrf-csrf"] = "csrf-csrf"
             params["Authorization"] = "Bearer  $token"
         }
-        getInstance().addHeader(params)
-        return getInstance().createService(ApiService::class.java)
+        instance.addHeader(params)
+        return instance.createService(ApiService::class.java)
     }
 
     fun login(
