@@ -33,10 +33,12 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
     override fun initView() {
         url = setUrl()
         dataBinding?.x5Web?.addJavascriptInterface(JSScript(), "android")
+        showLoading()
         dataBinding?.x5Web?.webViewClient = object : WebViewClient() {
             override fun onPageFinished(p0: WebView?, p1: String) {
                 super.onPageFinished(p0, p1)
                 url = p1
+                loadingDismiss()
             }
         }
         dataBinding?.x5Web?.webChromeClient = object : WebChromeClient() {

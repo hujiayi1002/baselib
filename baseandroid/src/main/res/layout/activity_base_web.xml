@@ -6,14 +6,17 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".base.BaseWebActivity">
+
+        <include layout="@layout/layout_toolbar" />
 
         <com.ocse.baseandroid.view.X5WebView
             android:id="@+id/x5Web"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

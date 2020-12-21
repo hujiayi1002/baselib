@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ocse.baseandroid">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.INSTALL_PACKAGES"
@@ -23,7 +22,7 @@
         <activity android:name=".view.ui.ShowVideoActivity"></activity>
         <activity android:name=".view.ui.ShowImageActivity" />
         <activity android:name=".base.BaseWebActivity" />
-        <activity android:name=".utils.WordViewActivity" />
+        <activity android:name=".view.ui.WordViewActivity" />
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"

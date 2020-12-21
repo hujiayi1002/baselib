@@ -24,6 +24,10 @@ class ShowImageActivity : BaseActivity<ActivityShowImageBinding>(R.layout.activi
     }
 
     override fun initView() {
+
+    }
+
+    override fun initData() {
         path =
             if (intent.getStringExtra(Path).isNullOrEmpty()) "" else intent.getStringExtra(Path)
                 .toString()
@@ -34,9 +38,5 @@ class ShowImageActivity : BaseActivity<ActivityShowImageBinding>(R.layout.activi
             setMainTextView(it)
         }
         GlideEngine.getInstance().loadPhoto(path, dataBinding?.photoView)
-    }
-
-    override fun initData() {
-
     }
 }

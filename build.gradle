@@ -8,7 +8,6 @@ buildscript {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "https://oss.jfrog.org/libs-snapshot" }
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -28,7 +27,6 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-
     }
 }
 
