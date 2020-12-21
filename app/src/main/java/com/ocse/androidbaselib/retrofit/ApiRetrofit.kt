@@ -4,8 +4,8 @@ import android.util.Log
 import com.ocse.androidbaselib.bean.UserBean
 import com.ocse.androidbaselib.bean.VersionBean
 import com.ocse.baseandroid.retrofit.base.BaseRetrofit
-import com.ocse.baseandroid.utils.SharePerferenceUtil
-import io.reactivex.Observable
+import com.ocse.baseandroid.utils.SharePreferenceUtil
+import io.reactivex.rxjava3.core.Observable
 import kotlin.collections.HashMap
 
 class ApiRetrofit : BaseRetrofit() {
@@ -16,7 +16,7 @@ class ApiRetrofit : BaseRetrofit() {
     }
 
     private fun getApiService(): ApiService {
-        val token = SharePerferenceUtil.getString("token")
+        val token = SharePreferenceUtil.getString("token")
             Log.e("hu--token", token)
         val params: HashMap<String, Any> = HashMap()
         if (token.isNullOrEmpty()) {

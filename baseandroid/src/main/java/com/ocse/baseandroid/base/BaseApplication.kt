@@ -5,12 +5,13 @@ import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import com.ocse.baseandroid.R
+import com.ocse.baseandroid.utils.ToastUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
-import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.set
@@ -47,9 +48,7 @@ open class BaseApplication : Application() {
         QbSdk.initTbsSettings(map)
 
         RxJavaPlugins.setErrorHandler {
-
             it.printStackTrace();//这里处理所有的Rxjava异常
-
         }
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
 
@@ -67,39 +66,38 @@ open class BaseApplication : Application() {
         //x5内核初始化接口
         QbSdk.initX5Environment(applicationContext, cb)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            override fun onActivityPaused(activity: Activity) {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
 
             }
-
             override fun onActivityStarted(activity: Activity) {
 
             }
+            override fun onActivityResumed(activity: Activity) {
+                activities.add(activity)
+                Log.e("TAG", "onActivityCreated: "+activity.localClassName )
+                Log.e("TAG", "onActivityCreated: " + activities.size)
+                count++
+            }
+            override fun onActivityPaused(activity: Activity) {
 
-            override fun onActivityDestroyed(activity: Activity) {
+            }
+            override fun onActivityStopped(activity: Activity) {
                 count--
                 activities.remove(activity)
                 if (count == 0) {
-                    isForeground = true
+                    isForeground = false
+                    Log.e("TAG", "onActivityDestroyed: " + activities.size)
+                    ToastUtil.show("当前APP已经不在前台，请谨慎操作")
                 }
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {
+
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
             }
 
-            override fun onActivityStopped(activity: Activity) {
-            }
-
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-
-                activities.add(activity)
-
-                Log.e("TAG", "onActivityCreated: "+activity.localClassName )
-                Log.e("TAG", "onActivityCreated: " + activities.size)
-                count++
-            }
-
-            override fun onActivityResumed(activity: Activity) {
-            }
         })
 
     }

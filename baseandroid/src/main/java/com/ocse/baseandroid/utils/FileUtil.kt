@@ -8,7 +8,7 @@ class FileUtil private constructor() {
      * @param path 传入路径字符串
      * @return File
      */
-    fun creatFileIfNotExist(path: String): File {
+    private fun createFileIfNotExist(path: String): File {
         println("cr")
         val file = File(path)
         if (!file.exists()) {
@@ -27,7 +27,7 @@ class FileUtil private constructor() {
      * @param path 传入路径字符串
      * @return File
      */
-    fun creatDirIfNotExist(path: String?): File {
+    private fun createDirIfNotExist(path: String?): File {
         val file = File(path)
         if (!file.exists()) {
             try {
@@ -44,7 +44,7 @@ class FileUtil private constructor() {
      * @param path
      * @return
      */
-    fun IsExist(path: String?): Boolean {
+    private fun isExist(path: String?): Boolean {
         val file = File(path)
         return file.exists()
     }
@@ -55,12 +55,12 @@ class FileUtil private constructor() {
      * @param path
      * @return
      */
-    fun creatNewFile(path: String): File {
+    private fun createNewFile(path: String): File {
         val file = File(path)
-        if (IsExist(path)) {
+        if (isExist(path)) {
             file.delete()
         }
-        creatFileIfNotExist(path)
+        createFileIfNotExist(path)
         return file
     }
 
@@ -70,19 +70,19 @@ class FileUtil private constructor() {
      * @param path
      * @return
      */
-    fun deleteFile(path: String?): Boolean {
+    private fun deleteFile(path: String?): Boolean {
         val file = File(path)
-        if (IsExist(path)) {
+        if (isExist(path)) {
             file.delete()
         }
         return true
     }
 
     // 删除一个目录
-    fun deleteFileDir(path: String): Boolean {
+    private fun deleteFileDir(path: String): Boolean {
         var flag = false
         val file = File(path)
-        if (!IsExist(path)) {
+        if (!isExist(path)) {
             return flag
         }
         if (!file.isDirectory) {
@@ -109,7 +109,7 @@ class FileUtil private constructor() {
         return flag
     }
 
-    fun delFolder(folderPath: String) {
+    private fun delFolder(folderPath: String) {
         try {
             delAllFile(folderPath) // 删除完里面所有内容
             var filePath: String? = folderPath
@@ -123,7 +123,7 @@ class FileUtil private constructor() {
 
     // 删除指定文件夹下所有文件
     // param path 文件夹完整绝对路径
-    fun delAllFile(path: String): Boolean {
+    private fun delAllFile(path: String): Boolean {
         var flag = false
         val file = File(path)
         if (!file.exists()) {
@@ -152,7 +152,7 @@ class FileUtil private constructor() {
         return flag
     }
 
-    fun getFlieName(rootpath: String?): Array<String?>? {
+    fun getFileName(rootpath: String?): Array<String?>? {
         val root = File(rootpath)
         val filesOrDirs = root.listFiles()
         return if (filesOrDirs != null) {
@@ -164,15 +164,15 @@ class FileUtil private constructor() {
                     num++
                 }
             }
-            val dir_r = arrayOfNulls<String>(num)
+            val dirR = arrayOfNulls<String>(num)
             num = 0
             for (i in dir.indices) {
                 if (dir[i] != null && dir[i] != "") {
-                    dir_r[num] = dir[i]
+                    dirR[num] = dir[i]
                     num++
                 }
             }
-            dir_r
+            dirR
         } else {
             null
         }
@@ -187,7 +187,7 @@ class FileUtil private constructor() {
      * @throws UnsupportedEncodingException
      */
     @Throws(FileNotFoundException::class, UnsupportedEncodingException::class)
-    fun getWriter(path: String?): BufferedWriter {
+    private fun getWriter(path: String?): BufferedWriter {
         var fileout: FileOutputStream? = null
         fileout = FileOutputStream(File(path))
         var writer: OutputStreamWriter? = null
@@ -196,12 +196,12 @@ class FileUtil private constructor() {
     }
 
     @Throws(FileNotFoundException::class)
-    fun getInputStream(path: String?): InputStream? {
+    private fun getInputStream(path: String): InputStream? {
         // if(Comments.DEBUG) System.out.println("path:"+path);
         var filein: FileInputStream? = null
         // if(Comments.DEBUG) System.out.println("2");
-        // File file = creatFileIfNotExist(path);
-        val file = File(path)
+        // File file = createFileIfNotExist(path);
+        val file = createFileIfNotExist(path)
         filein = FileInputStream(file)
         var `in`: BufferedInputStream? = null
         if (filein != null) {
@@ -210,7 +210,7 @@ class FileUtil private constructor() {
         return `in`
     }
 
-    fun StateXmlControl(path: String?): Boolean {
+    fun stateXmlControl(path: String?): Boolean {
         val f = File(path)
         return if (!f.exists()) {
             false
@@ -224,11 +224,11 @@ class FileUtil private constructor() {
      * @param inputStream
      * @return
      */
-    fun writeFromInputToSD(path: String, inputStream: InputStream): File? {
+    private fun writeFromInputToSD(path: String, inputStream: InputStream): File? {
         var file: File? = null
         var output: OutputStream? = null
         try {
-            file = creatFileIfNotExist(path)
+            file = createFileIfNotExist(path)
             output = FileOutputStream(file)
             val buffer = ByteArray(4 * 1024)
             var temp: Int
@@ -254,11 +254,11 @@ class FileUtil private constructor() {
      * @param path
      * @return
      */
-    fun writeFromInputToSD(path: String, b: ByteArray?): File? {
+    private fun writeFromInputToSD(path: String, b: ByteArray?): File? {
         var file: File? = null
         var output: OutputStream? = null
         try {
-            file = creatFileIfNotExist(path)
+            file = createFileIfNotExist(path)
             output = FileOutputStream(file)
             output.write(b)
             output.flush()
@@ -281,9 +281,9 @@ class FileUtil private constructor() {
         var text = text
         try {
             // 首先构建一个文件输出流,用于向文件中写入数据.
-            creatFileIfNotExist(filePath)
+            createFileIfNotExist(filePath)
             val txt = readTextLine(filePath)
-            text = text + txt
+            text += txt
             val out = FileOutputStream(filePath)
             // 构建一个写入器,用于向流中写入字符数据
             val writer = OutputStreamWriter(out, "gb2312")
@@ -315,7 +315,7 @@ class FileUtil private constructor() {
     }
 
     // 读取一个给定的文本文件内容,并把内容以一个字符串的形式返回
-    fun readTextLine(textFile: String?): String {
+    private fun readTextLine(textFile: String?): String {
         return try {
             // 首先构建一个文件输入流,该流用于从文本文件中读取数据
             val input = FileInputStream(textFile)
@@ -387,7 +387,7 @@ class FileUtil private constructor() {
          * @throws IOException
          */
         @Throws(IOException::class)
-        fun InputStreamTOByte(`in`: InputStream): ByteArray {
+        fun inputStreamTOByte(`in`: InputStream): ByteArray {
             val outStream = ByteArrayOutputStream()
             var data: ByteArray? = ByteArray(6 * 1024)
             var count = -1
@@ -405,7 +405,7 @@ class FileUtil private constructor() {
          * @throws IOException
          */
         @Throws(IOException::class)
-        fun OutputStreamTOByte(out: OutputStream): ByteArray {
+        fun outputStreamTOByte(out: OutputStream): ByteArray {
             val data = ByteArray(6 * 1024)
             out.write(data)
             return data

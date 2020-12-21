@@ -51,7 +51,7 @@ class ScreenUtils private constructor() {
          * @param
          * @return
          */
-        val screenHeight: Int
+      private  val screenHeight: Int
             get() {
                 val wm = ObtainApplication. getApp()!!
                     .getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -66,7 +66,7 @@ class ScreenUtils private constructor() {
          * @param
          * @return
          */
-        val screenWidth: Int
+     private   val screenWidth: Int
             get() {
                 val wm = ObtainApplication.getApp()!!
                     .getSystemService(Context.WINDOW_SERVICE) as WindowManager

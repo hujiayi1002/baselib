@@ -206,7 +206,7 @@ object PinyinUtils {
                     }
                 }
                 // 清理上一次组合数据
-                if (temp != null && temp.size > 0) {
+                if (!temp.isNullOrEmpty()) {
                     first.clear()
                 }
             } else {
@@ -215,7 +215,7 @@ object PinyinUtils {
                 }
             }
             // 保存组合数据以便下次循环使用
-            if (temp != null && temp.size > 0) {
+            if (!temp.isNullOrEmpty()) {
                 first = temp
             }
         }
@@ -226,7 +226,7 @@ object PinyinUtils {
                 returnStr += "$str,"
             }
         }
-        if (returnStr.length > 0) {
+        if (returnStr.isNotEmpty()) {
             returnStr = returnStr.substring(0, returnStr.length - 1)
         }
         return returnStr

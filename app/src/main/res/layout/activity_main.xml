@@ -29,7 +29,6 @@
             android:id="@+id/text2"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:background="@color/picture_color_ba3"
             android:imeOptions="actionPrevious"
             android:inputType="text"
             android:text="@{user.access_token}"

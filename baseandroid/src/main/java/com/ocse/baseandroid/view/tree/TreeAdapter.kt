@@ -17,15 +17,12 @@ import com.ocse.baseandroid.R
 class TreeAdapter<T> : TreeRecyclerAdapter {
     var onClickListener: ClickListener? = null
     private var mRecycler: RecyclerView? = null
-//    open lateinit var mContext: Context
-
     constructor(
         mTree: RecyclerView?,
         context: Context?,
         datas: List<Node<*, *>?>?,
         defaultExpandLevel: Int
-    ) : super(mTree, context, datas, defaultExpandLevel) {
-    }
+    ) : super(mTree, context, datas, defaultExpandLevel)
 
     //直接调用
     constructor(
@@ -47,14 +44,14 @@ class TreeAdapter<T> : TreeRecyclerAdapter {
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        val viewHolder = holder as TreeAdapter<*>.MyHoder
+        val viewHolder = holder as TreeAdapter<*>.MyHolder
         if (node.icon == -1) {
             viewHolder.icon.visibility = View.INVISIBLE
         } else {
             viewHolder.icon.visibility = View.VISIBLE
             viewHolder.icon.setImageResource(node.icon)
         }
-        viewHolder.label.setOnClickListener { view: View? ->
+        viewHolder.label.setOnClickListener {
             onClickListener!!.onClick(
                 node
             )
@@ -65,19 +62,15 @@ class TreeAdapter<T> : TreeRecyclerAdapter {
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder {
         val view =
             LayoutInflater.from(mContext).inflate(R.layout.list_item, viewGroup, false)
-        return MyHoder(view)
+        return MyHolder(view)
     }
 
-    internal inner class MyHoder(itemView: View) :
+    internal inner class MyHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        var label: TextView
-        var icon: ImageView
+        var label: TextView = itemView
+            .findViewById(R.id.id_treenode_label)
+        var icon: ImageView = itemView.findViewById(R.id.icon)
 
-        init {
-            label = itemView
-                .findViewById(R.id.id_treenode_label)
-            icon = itemView.findViewById(R.id.icon)
-        }
     }
 
     interface ClickListener {

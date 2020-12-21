@@ -44,8 +44,7 @@ class NumberProgressBar @JvmOverloads constructor(
     /**
      * The progress text color.
      */
-    var textColor: Int
-        private set
+    private var textColor: Int
 
     /**
      * The progress text size.
@@ -55,12 +54,12 @@ class NumberProgressBar @JvmOverloads constructor(
     /**
      * The height of the reached area.
      */
-    var reachedBarHeight: Float
+    private var reachedBarHeight: Float
 
     /**
      * The height of the unreached area.
      */
-    var unreachedBarHeight: Float
+    private var unreachedBarHeight: Float
 
     /**
      * The suffix of the number.
@@ -71,13 +70,13 @@ class NumberProgressBar @JvmOverloads constructor(
      * The prefix.
      */
     private var mPrefix = ""
-    private val default_text_color = Color.rgb(66, 145, 241)
-    private val default_reached_color = Color.rgb(66, 145, 241)
-    private val default_unreached_color = Color.rgb(204, 204, 204)
-    private val default_progress_text_offset: Float
-    private val default_text_size: Float
-    private val default_reached_bar_height: Float
-    private val default_unreached_bar_height: Float
+    private val defaultTextColor = Color.rgb(66, 145, 241)
+    private val defaultReachedColor = Color.rgb(66, 145, 241)
+    private val defaultUnreachedColor = Color.rgb(204, 204, 204)
+    private val defaultProgressTextOffset: Float
+    private val defaultTextSize: Float
+    private val defaultReachedBarHeight: Float
+    private val defaultUnreachedBarHeight: Float
 
     /**
      * The width of the text that to be drawn.
@@ -134,8 +133,7 @@ class NumberProgressBar @JvmOverloads constructor(
      */
     private var mDrawUnreachedBar = true
     private var mDrawReachedBar = true
-    var progressTextVisibility = true
-        private set
+    private var progressTextVisibility = true
 
     /**
      * Listener
@@ -155,10 +153,8 @@ class NumberProgressBar @JvmOverloads constructor(
     }
 
     override fun getSuggestedMinimumHeight(): Int {
-        return Math.max(
-            mTextSize.toInt(),
-            Math.max(reachedBarHeight.toInt(), unreachedBarHeight.toInt())
-        )
+        return mTextSize.toInt()
+            .coerceAtLeast(reachedBarHeight.toInt().coerceAtLeast(unreachedBarHeight.toInt()))
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -178,9 +174,9 @@ class NumberProgressBar @JvmOverloads constructor(
             result += padding
             if (mode == MeasureSpec.AT_MOST) {
                 result = if (isWidth) {
-                    Math.max(result, size)
+                    result.coerceAtLeast(size)
                 } else {
-                    Math.min(result, size)
+                    result.coerceAtMost(size)
                 }
             }
         }
@@ -265,7 +261,7 @@ class NumberProgressBar @JvmOverloads constructor(
      *
      * @return progress text size.
      */
-    var progressTextSize: Float
+    private var progressTextSize: Float
         get() = mTextSize
         set(textSize) {
             mTextSize = textSize
@@ -273,7 +269,7 @@ class NumberProgressBar @JvmOverloads constructor(
             invalidate()
         }
 
-    var unreachedBarColor: Int
+    private var unreachedBarColor: Int
         get() = mUnreachedBarColor
         set(barColor) {
             mUnreachedBarColor = barColor
@@ -281,7 +277,7 @@ class NumberProgressBar @JvmOverloads constructor(
             invalidate()
         }
 
-    var reachedBarColor: Int
+    private var reachedBarColor: Int
         get() = mReachedBarColor
         set(progressColor) {
             mReachedBarColor = progressColor
@@ -292,13 +288,13 @@ class NumberProgressBar @JvmOverloads constructor(
     var progress: Int
         get() = mCurrentProgress
         set(progress) {
-            if (progress <= max && progress >= 0) {
+            if (progress in 0..max) {
                 mCurrentProgress = progress
                 invalidate()
             }
         }
 
-    var max: Int
+    private var max: Int
         get() = mMaxProgress
         set(maxProgress) {
             if (maxProgress > 0) {
@@ -313,13 +309,13 @@ class NumberProgressBar @JvmOverloads constructor(
         invalidate()
     }
 
-    var suffix: String?
+    private var suffix: String?
         get() = mSuffix
         set(suffix) {
             mSuffix = suffix ?: ""
         }
 
-    var prefix: String?
+    private var prefix: String?
         get() = mPrefix
         set(prefix) {
             mPrefix = prefix ?: ""
@@ -327,7 +323,7 @@ class NumberProgressBar @JvmOverloads constructor(
 
     fun incrementProgressBy(by: Int) {
         if (by > 0) {
-            progress = progress + by
+            progress += by
         }
         if (mListener != null) {
             mListener!!.onProgressChange(progress, max)
@@ -368,39 +364,38 @@ class NumberProgressBar @JvmOverloads constructor(
 
     override fun onRestoreInstanceState(state: Parcelable) {
         if (state is Bundle) {
-            val bundle = state
-            textColor = bundle.getInt(INSTANCE_TEXT_COLOR)
-            mTextSize = bundle.getFloat(INSTANCE_TEXT_SIZE)
+            textColor = state.getInt(INSTANCE_TEXT_COLOR)
+            mTextSize = state.getFloat(INSTANCE_TEXT_SIZE)
             reachedBarHeight =
-                bundle.getFloat(INSTANCE_REACHED_BAR_HEIGHT)
+                state.getFloat(INSTANCE_REACHED_BAR_HEIGHT)
             unreachedBarHeight =
-                bundle.getFloat(INSTANCE_UNREACHED_BAR_HEIGHT)
-            mReachedBarColor = bundle.getInt(INSTANCE_REACHED_BAR_COLOR)
+                state.getFloat(INSTANCE_UNREACHED_BAR_HEIGHT)
+            mReachedBarColor = state.getInt(INSTANCE_REACHED_BAR_COLOR)
             mUnreachedBarColor =
-                bundle.getInt(INSTANCE_UNREACHED_BAR_COLOR)
+                state.getInt(INSTANCE_UNREACHED_BAR_COLOR)
             initializePainters()
-            max = bundle.getInt(INSTANCE_MAX)
-            progress = bundle.getInt(INSTANCE_PROGRESS)
-            prefix = bundle.getString(INSTANCE_PREFIX)
-            suffix = bundle.getString(INSTANCE_SUFFIX)
-            setProgressTextVisibility(if (bundle.getBoolean(INSTANCE_TEXT_VISIBILITY)) ProgressTextVisibility.Visible else ProgressTextVisibility.Invisible)
-            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE))
+            max = state.getInt(INSTANCE_MAX)
+            progress = state.getInt(INSTANCE_PROGRESS)
+            prefix = state.getString(INSTANCE_PREFIX)
+            suffix = state.getString(INSTANCE_SUFFIX)
+            setProgressTextVisibility(if (state.getBoolean(INSTANCE_TEXT_VISIBILITY)) ProgressTextVisibility.Visible else ProgressTextVisibility.Invisible)
+            super.onRestoreInstanceState(state.getParcelable(INSTANCE_STATE))
             return
         }
         super.onRestoreInstanceState(state)
     }
 
-    fun dp2px(dp: Float): Float {
+    private fun dp2px(dp: Float): Float {
         val scale = resources.displayMetrics.density
         return dp * scale + 0.5f
     }
 
-    fun sp2px(sp: Float): Float {
+    private fun sp2px(sp: Float): Float {
         val scale = resources.displayMetrics.scaledDensity
         return sp * scale
     }
 
-    fun setProgressTextVisibility(visibility: ProgressTextVisibility) {
+    private fun setProgressTextVisibility(visibility: ProgressTextVisibility) {
         progressTextVisibility = visibility == ProgressTextVisibility.Visible
         invalidate()
     }
@@ -429,10 +424,10 @@ class NumberProgressBar @JvmOverloads constructor(
     }
 
     init {
-        default_reached_bar_height = dp2px(1.5f)
-        default_unreached_bar_height = dp2px(1.0f)
-        default_text_size = sp2px(10f)
-        default_progress_text_offset = dp2px(3.0f)
+        defaultReachedBarHeight = dp2px(1.5f)
+        defaultUnreachedBarHeight = dp2px(1.0f)
+        defaultTextSize = sp2px(10f)
+        defaultProgressTextOffset = dp2px(3.0f)
 
         //load styled attributes.
         val attributes = context.theme.obtainStyledAttributes(
@@ -441,31 +436,31 @@ class NumberProgressBar @JvmOverloads constructor(
         )
         mReachedBarColor = attributes.getColor(
             R.styleable.NumberProgressBar_progress_reached_color,
-            default_reached_color
+            defaultReachedColor
         )
         mUnreachedBarColor = attributes.getColor(
             R.styleable.NumberProgressBar_progress_unreached_color,
-            default_unreached_color
+            defaultUnreachedColor
         )
         textColor = attributes.getColor(
             R.styleable.NumberProgressBar_progress_text_color,
-            default_text_color
+            defaultTextColor
         )
         mTextSize = attributes.getDimension(
             R.styleable.NumberProgressBar_progress_text_size,
-            default_text_size
+            defaultTextSize
         )
         reachedBarHeight = attributes.getDimension(
             R.styleable.NumberProgressBar_progress_reached_bar_height,
-            default_reached_bar_height
+            defaultReachedBarHeight
         )
         unreachedBarHeight = attributes.getDimension(
             R.styleable.NumberProgressBar_progress_unreached_bar_height,
-            default_unreached_bar_height
+            defaultUnreachedBarHeight
         )
         mOffset = attributes.getDimension(
             R.styleable.NumberProgressBar_progress_text_offset,
-            default_progress_text_offset
+            defaultProgressTextOffset
         )
         val textVisible = attributes.getInt(
             R.styleable.NumberProgressBar_progress_text_visibility,

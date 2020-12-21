@@ -40,7 +40,7 @@ class TimeUtil private constructor() {
          * @param timeStr 时间字符串
          * @return 毫秒时间戳
          */
-        fun string2Millis(timeStr: String): Long {
+      private  fun string2Millis(timeStr: String): Long {
             return if (TextUtils.isEmpty(timeStr)) 0 else string2Millis(
                 timeStr,
                 DEF_FORMAT
@@ -54,7 +54,7 @@ class TimeUtil private constructor() {
          * @param format  时间格式
          * @return
          */
-        fun string2Millis(timeStr: String, format: String?): Long {
+      private  fun string2Millis(timeStr: String, format: String?): Long {
             if (TextUtils.isEmpty(timeStr)) {
                 return 0
             }
@@ -188,7 +188,7 @@ class TimeUtil private constructor() {
          * @param millis 毫秒数
          * @return int[0]: 天数 <br></br> int[1]: 小时数 <br></br> int[2]: 分钟数 <br></br> int[3]: 秒数
          */
-        fun millis2Array(millis: Long): IntArray {
+      private  fun millis2Array(millis: Long): IntArray {
             val secondDiff = millis / 1000
             val days = (secondDiff / (60 * 60 * 24)).toInt()
             val hours = ((secondDiff - days * (60 * 60 * 24)) / (60 * 60)).toInt()
@@ -203,7 +203,7 @@ class TimeUtil private constructor() {
          *
          * @param startTime 起始时间
          * @param endTime   结束时间
-         * @param foramt    时间格式
+         * @param format    时间格式
          * @return 毫秒级时间差
          */
         /**
@@ -217,35 +217,43 @@ class TimeUtil private constructor() {
         fun caculateTimeDiff(
             startTime: Any,
             endTime: Any,
-            foramt: String? = DEF_FORMAT
+            format: String? = DEF_FORMAT
         ): Long {
-            val milliStart: Long
-            val milliEnd: Long
-            milliStart = if (startTime is String) {
-                string2Millis(startTime, foramt)
-            } else if (startTime is Long) {
-                startTime
-            } else if (startTime is Date) {
-                startTime.time
-            } else {
-                Log.e(
-                    TAG,
-                    "Error startTime in the caculateTimeDiff () method ========> startTime: $startTime"
-                )
-                throw UnsupportedOperationException("startTime foramt error")
+            val milliStart: Long = when (startTime) {
+                is String -> {
+                    string2Millis(startTime, format)
+                }
+                is Long -> {
+                    startTime
+                }
+                is Date -> {
+                    startTime.time
+                }
+                else -> {
+                    Log.e(
+                        TAG,
+                        "Error startTime in the caculateTimeDiff () method ========> startTime: $startTime"
+                    )
+                    throw UnsupportedOperationException("startTime foramt error")
+                }
             }
-            milliEnd = if (endTime is String) {
-                string2Millis(endTime, foramt)
-            } else if (endTime is Long) {
-                endTime
-            } else if (endTime is Date) {
-                endTime.time
-            } else {
-                Log.e(
-                    TAG,
-                    "Error endTime in the caculateTimeDiff () method ========> endTime: $endTime"
-                )
-                throw UnsupportedOperationException("endTime foramt error")
+            val milliEnd: Long = when (endTime) {
+                is String -> {
+                    string2Millis(endTime, format)
+                }
+                is Long -> {
+                    endTime
+                }
+                is Date -> {
+                    endTime.time
+                }
+                else -> {
+                    Log.e(
+                        TAG,
+                        "Error endTime in the caculateTimeDiff () method ========> endTime: $endTime"
+                    )
+                    throw UnsupportedOperationException("endTime foramt error")
+                }
             }
             return milliEnd - milliStart
         }
@@ -257,7 +265,7 @@ class TimeUtil private constructor() {
          * @param endTime   结束时间
          * @return int[0]: 天数 <br></br> int[1]: 小时数 <br></br> int[2]: 分钟数 <br></br> int[3]: 秒数
          */
-        fun caculateTimeDiffArray(startTime: Any, endTime: Any): IntArray {
+      private  fun caculateTimeDiffArray(startTime: Any, endTime: Any): IntArray {
             return caculateTimeDiffArray(startTime, endTime)
         }
 

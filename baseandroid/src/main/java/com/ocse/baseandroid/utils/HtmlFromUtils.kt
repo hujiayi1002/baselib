@@ -23,8 +23,7 @@ class HtmlFromUtils {
     /**
      * 此类负责处理source字符串中的img标签 对其添加点击事件
      */
-    private class URLTagHandler(context: Context) : TagHandler {
-        private val mContext: Context
+    private class URLTagHandler : TagHandler {
         override fun handleTag(
             opening: Boolean,
             tag: String,
@@ -41,7 +40,7 @@ class HtmlFromUtils {
                 val imgURL = images[0].source
                 // 使图片可点击并监听点击事件
                 output.setSpan(
-                    ClickableImage(mContext, imgURL),
+                    ClickableImage(ObtainApplication.getApp(), imgURL),
                     len - 1,
                     len,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -61,9 +60,6 @@ class HtmlFromUtils {
 
         }
 
-        init {
-            mContext = context.applicationContext
-        }
     }
 
 //    fun setImgOnclick(clickImg: ClickImgImpl) {
@@ -149,7 +145,7 @@ class HtmlFromUtils {
                     }
                     //第三个参数 new URLTagHandler(context)负责添加img标签的点击事件
                     val charSequence: CharSequence =
-                        Html.fromHtml(sources, imageGetter, URLTagHandler(context))
+                        Html.fromHtml(sources, imageGetter, URLTagHandler())
                     //在activiy的runOnUiThread方法中更新ui
                     context.runOnUiThread(Runnable { v.text = charSequence })
                 }).start()

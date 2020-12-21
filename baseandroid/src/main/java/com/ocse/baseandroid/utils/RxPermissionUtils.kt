@@ -2,10 +2,8 @@ package com.ocse.baseandroid.utils
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import androidx.fragment.app.FragmentActivity
-import com.tbruyelle.rxpermissions2.RxPermissions
+import com.tbruyelle.rxpermissions3.RxPermissions
 
 class RxPermissionUtils {
     @SuppressLint("CheckResult")

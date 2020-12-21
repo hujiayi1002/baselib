@@ -13,7 +13,7 @@ open class TimeSelectUtil {
             val c = Calendar.getInstance()
             DatePickerDialog(
                 mContext,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     val monthString = if ((month + 1) < 10) {
                         "0${month + 1}"
                     } else {
@@ -26,7 +26,7 @@ open class TimeSelectUtil {
                     }
                     TimePickerDialog(
                         mContext,AlertDialog.THEME_HOLO_LIGHT,
-                        TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                             val hour = if (hourOfDay < 10) {
                                 "0${hourOfDay}"
                             } else {
@@ -56,7 +56,7 @@ open class TimeSelectUtil {
             val c = Calendar.getInstance()
             TimePickerDialog(
                 mContext, AlertDialog.THEME_HOLO_LIGHT,
-                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                     val hour = if (hourOfDay < 10) {
                         "0${hourOfDay}"
                     } else {
@@ -82,7 +82,7 @@ open class TimeSelectUtil {
             val c = Calendar.getInstance()
             DatePickerDialog(
                 mContext,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     val monthString = if ((month + 1) < 10) {
                         "0${month + 1}"
                     } else {
@@ -107,7 +107,7 @@ open class TimeSelectUtil {
             val c = Calendar.getInstance()
             DatePickerDialog(
                 mContext,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     val monthString = if ((month + 1) < 10) {
                         "0${month + 1}"
                     } else {

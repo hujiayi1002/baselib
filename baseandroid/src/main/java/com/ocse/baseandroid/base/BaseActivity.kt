@@ -17,7 +17,8 @@ import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.ToastUtil
 import com.ocse.baseandroid.view.LoadingView
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlin.system.exitProcess
 
 
 abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
@@ -30,7 +31,7 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     open val layout = getLayoutId
     open var dataBinding: V? = null
     private var mCompositeDisposable = CompositeDisposable()
-
+    open var TAG =""
     open val mContext by lazy { this@BaseActivity }
     open var isNeedDoubleExit = false
     private var exitTime = 0L
@@ -46,6 +47,7 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         dataBinding = DataBindingUtil.setContentView(this, layout)
         viewModelProvider = getViewModelProvider()
         loadingView = LoadingView(this)
+        TAG=localClassName
         initTitleBar("")
         initView()
         initData()
@@ -132,7 +134,8 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
             ToastUtil.show("再按一次退出程序")
             exitTime = System.currentTimeMillis()
         } else {
-            finish()
+//            finish()
+            exitProcess(0)
         }
     }
 
@@ -175,8 +178,8 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     }
 
     open fun loge(message: String) {
-        var TAG = "Tag:${localClassName}"
-        Log.e(TAG, "hu--$message")
+        var tag = "Tag:${localClassName}"
+        Log.e(tag, "hu--$message")
     }
 
     override fun onDestroy() {

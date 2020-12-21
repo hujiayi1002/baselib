@@ -3,7 +3,7 @@ package com.ocse.baseandroid.retrofit
 import android.util.Log
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Request
-import com.ocse.baseandroid.utils.SharePerferenceUtil
+import com.ocse.baseandroid.utils.SharePreferenceUtil
 import java.util.HashMap
 
 //https://github.com/kittinunf/fuel
@@ -52,8 +52,8 @@ object FuelHelper {
      */
     private fun tokenInterceptor() = { next: (Request) -> Request ->
         { req: Request ->
-            var token = SharePerferenceUtil.getString("token")
-            Log.e("token",token)
+            var token = SharePreferenceUtil.getString("token")
+            Log.e("token",token.toString())
             val params = HashMap<String, Any>()
             if (token.isNullOrEmpty()) {
                 params["csrf-csrf"] = "csrf-csrf"

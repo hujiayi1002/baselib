@@ -24,9 +24,9 @@ class InstallApkUtils {
         private lateinit var mProgress: NumberProgressBar
         private lateinit var dialog: AlertDialog
 
-        private val DOWNSTATE = 1
-        private val DOWNOVER = 2
-        private val DOWNFAILE = 3
+        private const val DOWNSTATE = 1
+        private const val DOWNOVER = 2
+        private const val DOWNFAILE = 3
         init {
             installPremission()
         }
@@ -100,9 +100,7 @@ class InstallApkUtils {
 
                 override fun onDownloadSuccess(file: File) {
                     handler.sendEmptyMessage(DOWNOVER)
-
                     installApk(file)
-
                 }
 
             })
@@ -122,7 +120,7 @@ class InstallApkUtils {
             }
         }
 
-         fun installPremission() {
+        private fun installPremission() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val isgtand = ObtainApplication. getApp()!!.packageManager.canRequestPackageInstalls()
                 if (isgtand) {

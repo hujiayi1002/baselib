@@ -20,19 +20,18 @@ import com.ocse.baseandroid.view.LoadingView
 /**
  * BaseFragment，处理ViewModelProvider的初始化
  * */
-open abstract class BaseFragment<V : ViewDataBinding>(getBindView: Int) : Fragment() {
+abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) : Fragment() {
     private var viewModelProvider: ViewModelProvider? = null
     private lateinit var loadingView: LoadingView
     private var hash: Int = 0
     private var lastClickTime: Long = 0
     private var spaceTime: Long = 2000
-    lateinit var bindingUtil: V
+    private lateinit var bindingUtil: V
     private lateinit var relBack: RelativeLayout
     private lateinit var tvTitle: TextView
     private lateinit var tvRight: TextView
     private lateinit var imgRight: ImageView
     private lateinit var toolbar: Toolbar
-    private val getBindView = getBindView
 
     abstract fun onViewCreated()
 
@@ -49,7 +48,7 @@ open abstract class BaseFragment<V : ViewDataBinding>(getBindView: Int) : Fragme
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModelProvider = getViewModelProvider()
-        loadingView = LoadingView(activity!!)
+        loadingView = LoadingView(requireActivity())
     }
 
 
@@ -60,7 +59,7 @@ open abstract class BaseFragment<V : ViewDataBinding>(getBindView: Int) : Fragme
     }
 
     private fun initTitleBar(title: String) {
-        toolbar = bindingUtil.root.findViewById<Toolbar>(R.id.toolbar) ?: return
+        toolbar = bindingUtil.root.findViewById(R.id.toolbar) ?: return
         toolbar.setContentInsetsRelative(0, 0)
         relBack = toolbar.findViewById(R.id.relBack)
         tvTitle = toolbar.findViewById(R.id.tvTitle)
@@ -118,8 +117,8 @@ open abstract class BaseFragment<V : ViewDataBinding>(getBindView: Int) : Fragme
 
     }
     open fun loge(message: String) {
-        var TAG = "Tag:${activity?.localClassName}"
-        Log.e(TAG, "hu--$message")
+        val tag = "Tag:${activity?.localClassName}"
+        Log.e(tag, "hu--$message")
     }
     open fun loadingDismiss() {
         loadingView.dismiss()
@@ -133,45 +132,45 @@ open abstract class BaseFragment<V : ViewDataBinding>(getBindView: Int) : Fragme
     inner class TitleBuilder(title: String) {
         private val myTitle = title
 
-        open fun setTitle(): TitleBuilder {
+         fun setTitle(): TitleBuilder {
             tvTitle.text = myTitle
             return this
         }
 
-        open fun setLeftBackGone(): TitleBuilder {
+         fun setLeftBackGone(): TitleBuilder {
             relBack.visibility = View.GONE
             return this
         }
 
-        open fun setLeftBackVisible(): TitleBuilder {
+         fun setLeftBackVisible(): TitleBuilder {
             relBack.visibility = View.VISIBLE
             return this
         }
 
-        open fun setRightTextGone(): TitleBuilder {
+         fun setRightTextGone(): TitleBuilder {
             tvRight.visibility = View.GONE
             return this
         }
 
-        open fun setRightText(text: String): TitleBuilder {
+         fun setRightText(text: String): TitleBuilder {
             tvRight.visibility = View.VISIBLE
             tvRight.text = text
             return this
         }
 
-        open fun setRightImgGone(): TitleBuilder {
+         fun setRightImgGone(): TitleBuilder {
             imgRight.visibility = View.GONE
             return this
         }
 
-        open fun setBackgroundColor(color: Int): TitleBuilder {
+         fun setBackgroundColor(color: Int): TitleBuilder {
             if (::toolbar.isInitialized) {
                 toolbar.setBackgroundColor(color)
             }
             return this
         }
 
-        open fun setRightImg(resource: Int): TitleBuilder {
+         fun setRightImg(resource: Int): TitleBuilder {
             imgRight.visibility = View.VISIBLE
             imgRight.setImageResource(resource)
             return this

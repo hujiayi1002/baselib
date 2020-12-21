@@ -1,21 +1,24 @@
 package com.ocse.androidbaselib.model
 
+import androidx.lifecycle.MutableLiveData
 import com.ocse.androidbaselib.bean.UserBean
 import com.ocse.androidbaselib.retrofit.ApiRetrofit.Companion.instance
 import com.ocse.baseandroid.base.BaseViewModel
 import com.ocse.baseandroid.retrofit.base.BaseObserver
-import com.ocse.baseandroid.utils.SharePerferenceUtil.saveString
 
 /**
  * @author hujiayi
  */
 class BaseModel : BaseViewModel<Any>() {
-    var userMutableLiveData = get(UserBean::class.java)
+    var userMutableLiveData = get(UserBean::class.java) as MutableLiveData<UserBean>
 
-    val user: Unit
-        get() {
+    fun user(){
             instance.login("admin", "123456")
                 .subscribe(object : BaseObserver<UserBean?>(compositeDisposable) {
+                    override fun onError(e: Throwable) {
+                        super.onError(e)
+                        userMutableLiveData.postValue(null)
+                    }
                     override fun _onNext(entity: UserBean?) {
                         userMutableLiveData.postValue(entity)
                     }
@@ -25,6 +28,7 @@ class BaseModel : BaseViewModel<Any>() {
 //                        //                getVersion();
 //                    }
                 })
+
         }
     //        ApiRetrofit.Companion.getInstacne().getversion().subscribe(new BaseObserver<VersionBean>(getCompositeDisposable()) {
     //            @Override

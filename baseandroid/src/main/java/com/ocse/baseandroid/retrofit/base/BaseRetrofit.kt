@@ -1,12 +1,12 @@
 package com.ocse.baseandroid.retrofit.base
 
 import android.util.Log
-import com.ocse.baseandroid.utils.SharePerferenceUtil.getString
+import com.ocse.baseandroid.utils.SharePreferenceUtil.getString
 import com.ocse.baseandroid.utils.ToastUtil.Companion.show
-import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableTransformer
+import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -14,7 +14,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**

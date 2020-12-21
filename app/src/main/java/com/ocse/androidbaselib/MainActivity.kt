@@ -1,29 +1,39 @@
 package com.ocse.androidbaselib
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ocse.androidbaselib.bean.UserBean
 import com.ocse.androidbaselib.databinding.ActivityMainBinding
 import com.ocse.androidbaselib.model.BaseModel
 import com.ocse.baseandroid.base.BaseActivity
+import com.ocse.baseandroid.utils.DataStoreUtils
 import com.ocse.baseandroid.utils.ToastUtil
+import com.ocse.baseandroid.view.ChooseTakeBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private lateinit var vm: BaseModel
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        isNeedDoubleExit=true
         vm = get(BaseModel::class.java)
         vm.userMutableLiveData.observe(this,
             Observer {
                 it as UserBean
-                log("ActivityA中接收user：${it.access_token}");
+                loge("ActivityA中接收user：${it.access_token}")
                 dataBinding?.user = it
             })
 
@@ -37,22 +47,51 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val sd = ArrayList<String>()
         repeat(sd.size) {  }
         textView.setOnClickListener {
-            vm.user
-//            val intent = Intent(this, MainActivity2::class.java)
-//            // create the transition animation - the images in the layouts
-//            // of both activities are defined with android:transitionName="robot"
-//            val options = ActivityOptions
-//                .makeSceneTransitionAnimation(this, img, "robot")
-//            // start the new activity
-//            startActivity(intent, options.toBundle())
+//            vm.user()
+            val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@MainActivity)
+            bottomSheetDialog.show(supportFragmentManager,"")
+            bottomSheetDialog.setTakePop(object :ChooseTakeBottomSheetDialog.ChooseTake{
+                override fun take() {
+                    ToastUtil.show("123")
+                }
+
+                override fun album() {
+                    ToastUtil.show("album")
+
+                }
+
+                override fun dismiss() {
+                    ToastUtil.show("dismiss")
+                    bottomSheetDialog.dismiss()
+                }
+
+            })
+
+
         }
         button.setOnClickListener {
             ToastUtil.show("1234")
+                        val intent = Intent(this, MainActivity2::class.java)
+            // create the transition animation - the images in the layouts
+            // of both activities are defined with android:transitionName="robot"
+            val options = ActivityOptions
+                .makeSceneTransitionAnimation(this, img, "robot")
+            // start the new activity
+            startActivity(intent, options.toBundle())
 //            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             //Intent intent=new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
             //Intent intent=new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
 //            startActivityForResult(intent, 0)
         }
+       GlobalScope.launch {
+//            DataStoreUtils.setString("user","hjy")
+//            DataStoreUtils.setString("user","123")
+//            Log.e(TAG, "onCreate: "+DataStoreUtils.getString("user") )
+        }
+        runBlocking{
+
+        }
+
     }
 
     fun haspre(x: Any) = when (x) {

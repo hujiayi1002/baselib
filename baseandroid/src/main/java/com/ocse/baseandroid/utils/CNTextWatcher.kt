@@ -23,7 +23,7 @@ class CNTextWatcher  {
                     }
                 }
                 //如果"."在起始位置,则起始位置自动补0
-                if (s.toString().trim().substring(0).equals(".")) {
+                if (s.toString().trim().substring(0) == ".") {
                     s = "0$s"
                     et_contract_add_htze.setText(s)
                     et_contract_add_htze.setSelection(2)
@@ -33,7 +33,7 @@ class CNTextWatcher  {
                 if (s.toString().startsWith("0")
                     && s.toString().trim().length > 1
                 ) {
-                    if (!s.toString().substring(1, 2).equals(".")) {
+                    if (s.toString().substring(1, 2) != ".") {
                         et_contract_add_htze.setText(s.subSequence(0, 1))
                         et_contract_add_htze.setSelection(1)
                         return

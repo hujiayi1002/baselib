@@ -10,8 +10,8 @@ import com.google.gson.JsonSyntaxException
 import com.ocse.baseandroid.utils.NetworkUtil
 import com.ocse.baseandroid.utils.ObtainApplication
 import com.ocse.baseandroid.utils.ToastUtil.Companion.show
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.observers.DisposableObserver
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketException
@@ -21,6 +21,9 @@ import java.net.SocketException
  */
 abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
     DisposableObserver<T>() {
+    init {
+        compositeDisposable.add(this)
+    }
     override fun onNext(t: T) {
         _onNext(t)
         Log.w("hu", "onNext = " + Gson().toJson(t))
@@ -72,7 +75,5 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
     abstract fun _onNext(entity: T)
     fun _onError(e: Throwable) {}
 
-    init {
-        compositeDisposable.add(this)
-    }
+
 }

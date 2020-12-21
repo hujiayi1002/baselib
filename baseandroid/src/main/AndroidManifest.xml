@@ -20,12 +20,15 @@
         android:name=".base.BaseApplication"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".utils.WordViewAcivity"></activity>
+        <activity android:name=".view.ui.ShowVideoActivity"></activity>
+        <activity android:name=".view.ui.ShowImageActivity" />
+        <activity android:name=".base.BaseWebActivity" />
+        <activity android:name=".utils.WordViewActivity" />
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt"></service>
+            android:process=":dexopt" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -273,7 +273,7 @@ object DateUtils {
         val minute = (nowMill - timeMill) / 60000
         if (minute < 60) {
             if (minute <= 0) {
-                val second = Math.max((nowMill - timeMill) / 1000, 1).toInt()
+                val second = ((nowMill - timeMill) / 1000).coerceAtLeast(1).toInt()
                 // 由于手机时间的原因，有时候会为负，这时候显示1秒前
                 return second.toString() + "秒前"
             } else {
@@ -316,7 +316,7 @@ object DateUtils {
         val minute = (nowMill - timeMill) / 60000
         if (minute < 60) {
             if (minute <= 0) {
-                val second = Math.max((nowMill - timeMill) / 1000, 1).toInt()
+                val second = ((nowMill - timeMill) / 1000).coerceAtLeast(1).toInt()
                 // 由于手机时间的原因，有时候会为负，这时候显示1秒前
                 return second.toString() + "秒前"
             } else {

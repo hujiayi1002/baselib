@@ -15,7 +15,7 @@ class ToastUtil {
          * Prevent continuous click, jump two pages
          */
         private var lastToastTime: Long = 0
-        private val TIME: Long = 1500
+        private const val TIME: Long = 1500
 
         private fun isShowToast(): Boolean {
             val time = System.currentTimeMillis()

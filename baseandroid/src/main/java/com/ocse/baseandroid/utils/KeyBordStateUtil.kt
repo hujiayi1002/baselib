@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import kotlin.math.abs
 
 /**
  * Function:
@@ -17,7 +18,9 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
  */
 class KeyBordStateUtil(context: Activity) {
     private var listener: OnKeyBordStateListener? = null
-    private val rootLayout: View?
+    private val rootLayout: View? = (context.findViewById<View>(R.id.content) as ViewGroup).getChildAt(
+        0
+    )
     private var mVisibleHeight = 0
     private var mFirstVisibleHeight = 0
     private val mOnGlobalLayoutListener: OnGlobalLayoutListener? =
@@ -39,7 +42,7 @@ class KeyBordStateUtil(context: Activity) {
         val mIsKeyboardShow = mVisibleHeight < mFirstVisibleHeight
         if (mIsKeyboardShow) {
             //键盘高度
-            val keyboardHeight = Math.abs(mVisibleHeight - mFirstVisibleHeight)
+            val keyboardHeight = abs(mVisibleHeight - mFirstVisibleHeight)
             if (listener != null) {
                 listener!!.onSoftKeyBoardShow(keyboardHeight)
             }
@@ -78,10 +81,6 @@ class KeyBordStateUtil(context: Activity) {
     }
 
     init {
-        rootLayout =
-            (context.findViewById<View>(R.id.content) as ViewGroup).getChildAt(
-                0
-            )
-        rootLayout.getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListener)
+        rootLayout?.viewTreeObserver?.addOnGlobalLayoutListener(mOnGlobalLayoutListener)
     }
 }

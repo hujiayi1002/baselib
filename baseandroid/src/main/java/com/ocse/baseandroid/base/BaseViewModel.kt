@@ -2,7 +2,7 @@ package com.ocse.baseandroid.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -21,7 +21,7 @@ open class BaseViewModel<T> : ViewModel() {
      */
 
 
-    inline fun get(clazz: T): MutableLiveData<T> {
+     fun get(clazz: T): MutableLiveData<T> {
         return get(null, clazz)
     }
 
@@ -34,7 +34,7 @@ open class BaseViewModel<T> : ViewModel() {
      */
 
     fun get(key: String?, clazz: T): MutableLiveData<T> {
-        var keyName = if (key.isNullOrEmpty()) {
+        val keyName = if (key.isNullOrEmpty()) {
             clazz.toString()
         } else {
             key
@@ -45,18 +45,17 @@ open class BaseViewModel<T> : ViewModel() {
             return mutableLiveData
         }
         //2.如果集合中没有对应实体类的Livedata对象，就创建并添加至集合中
-        mutableLiveData = MutableLiveData();
+        mutableLiveData = MutableLiveData()
         maps[keyName] = mutableLiveData
-        return mutableLiveData;
+        return mutableLiveData
     }
 
     /**
      * 在对应的FragmentActivity销毁之后调用
      */
     override fun onCleared() {
-        super.onCleared();
-        if (maps != null) {
-            maps.clear();
-        }
+        super.onCleared()
+        maps.clear()
+        compositeDisposable.clear()
     }
 }

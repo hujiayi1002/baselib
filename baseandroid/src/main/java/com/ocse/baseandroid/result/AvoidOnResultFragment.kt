@@ -3,9 +3,10 @@ package com.ocse.baseandroid.result
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * @author hujiayi

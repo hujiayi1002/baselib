@@ -5,8 +5,8 @@ import java.security.MessageDigest
 object MD5Util {
     //加密算法
     fun encode(str: String?): String? {
-        val ALGORITHM = "MD5"
-        val HEX_DIGITS = charArrayOf(
+        val md5 = "MD5"
+        charArrayOf(
             '0', '1', '2', '3', '4', '5',
             '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
         )
@@ -14,7 +14,7 @@ object MD5Util {
             null
         } else try {
             val messageDigest =
-                MessageDigest.getInstance(ALGORITHM)
+                MessageDigest.getInstance(md5)
             messageDigest.update(str.toByteArray(charset("utf-8")))
             messageDigest.digest().toString()
         } catch (e: Exception) {
