@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ocse.baseandroid.R
+import com.ocse.baseandroid.view.LoadingView
 
 /**
  * BaseFragment，处理ViewModelProvider的初始化
@@ -47,7 +48,7 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModelProvider = getViewModelProvider()
-        loadingView = LoadingView(requireActivity())
+        loadingView = LoadingView.Builder(requireActivity()).create()
     }
 
 

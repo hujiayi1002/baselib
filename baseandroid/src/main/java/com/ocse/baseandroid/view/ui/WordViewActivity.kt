@@ -13,6 +13,7 @@ import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.DownLoadFileUtils
 import com.ocse.baseandroid.utils.PermissionUtils
+import com.ocse.baseandroid.view.LoadingView
 import com.tencent.smtt.sdk.TbsReaderView
 import kotlinx.android.synthetic.main.activity_word_view_acivity.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -43,7 +44,7 @@ class WordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
     }
 
     private fun initView() {
-        loadingView = LoadingView(this)
+        loadingView = LoadingView.Builder(this).create()
         loadingView.setCanceledOnTouchOutside(true)
         if (!loadingView.isShowing) {
             loadingView.show()

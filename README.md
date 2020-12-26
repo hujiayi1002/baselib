@@ -1,6 +1,18 @@
 # baselib
-baselib
-使用方式
+    baselib
+    使用方式
+
+    android内添加
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    viewBinding {
+        enabled = true
+    }
+    dataBinding {
+        enabled = true
+    }
 
     allprojects {
         repositories {
