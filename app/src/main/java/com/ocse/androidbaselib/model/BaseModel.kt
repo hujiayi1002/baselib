@@ -19,6 +19,7 @@ class BaseModel : BaseViewModel<Any>() {
                         super.onError(e)
                         userMutableLiveData.postValue(null)
                     }
+
                     override fun _onNext(entity: UserBean?) {
                         userMutableLiveData.postValue(entity)
                     }

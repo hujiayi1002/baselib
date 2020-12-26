@@ -10,7 +10,7 @@ object ApiRetrofitManager {
     fun init(baseUrl: String) {
         try {
             if ("/" == baseUrl.substring(baseUrl.length - 1)) {
-                instance!!.uRL = baseUrl
+                instance.uRL = baseUrl
             } else {
                 show("必须以/结尾")
             }

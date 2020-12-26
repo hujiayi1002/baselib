@@ -2,7 +2,7 @@ package com.ocse.baseandroid.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.ConcurrentHashMap
 
 

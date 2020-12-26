@@ -3,10 +3,10 @@ package com.ocse.baseandroid.retrofit.base
 import android.util.Log
 import com.ocse.baseandroid.utils.SharePreferenceUtil.getString
 import com.ocse.baseandroid.utils.ToastUtil.Companion.show
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableTransformer
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.ObservableTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -25,15 +25,16 @@ open class BaseRetrofit {
     /**
      * 统一header
      */
-    private val mHeaderMap: MutableMap<String, Any> =
-        HashMap()
 
-    @Throws(Exception::class)
-    fun setRetrofit(): Retrofit? {
-        if (null == uRL || uRL!!.isEmpty()) {
+    private val mHeaderMap: MutableMap<String, Any> = HashMap()
+
+    private fun setRetrofit(): Retrofit? {
+        uRL = "http://10.81.108.41:8099/"
+        if (uRL.isNullOrEmpty()) {
             throw Exception("请先设置BaseUrl")
         }
         if (retrofit == null) {
+            okHttpClientBuilder = OkHttpClient.Builder()
             okHttpClientBuilder!!.retryOnConnectionFailure(true)
                 .addInterceptor(mHeaderInterceptor)
                 .addInterceptor(loggingInterceptor)
@@ -51,7 +52,7 @@ open class BaseRetrofit {
         return retrofit
     }
 
-    fun getRetrofit(): Retrofit? {
+    private fun getRetrofit(): Retrofit? {
         try {
             setRetrofit()
         } catch (e: Exception) {
@@ -67,7 +68,7 @@ open class BaseRetrofit {
      * @return
      */
     fun addHeader(map: MutableMap<String, Any>?): BaseRetrofit {
-        if (map != null && !map.isEmpty()) {
+        if (!map.isNullOrEmpty()) {
             val token = getString("token")
             if (token == null || "" == token) {
                 map["csrf-csrf"] = "csrf-csrf"
@@ -86,7 +87,7 @@ open class BaseRetrofit {
      * @return
     </T> */
     fun <T> createService(apiService: Class<T>?): T {
-        return retrofit!!.create(apiService)
+        return getRetrofit()!!.create(apiService)
     }
 
     /**
@@ -114,7 +115,7 @@ open class BaseRetrofit {
         HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 //打印retrofit日志
-                Log.e("hu", "retrofitBack = $message")
+                Log.e("HttpLoggingInterceptor", "retrofitBack ====== $message")
             }
         }).setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -134,7 +135,6 @@ open class BaseRetrofit {
         @JvmStatic
         val instance: BaseRetrofit
             get() {
-                okHttpClientBuilder = OkHttpClient.Builder()
                 if (baseRetrofit == null) {
                     synchronized(BaseRetrofit::class.java) {
                         if (baseRetrofit == null) {

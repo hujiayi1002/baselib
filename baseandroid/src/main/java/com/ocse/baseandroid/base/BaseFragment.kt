@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ocse.baseandroid.R
-import com.ocse.baseandroid.view.LoadingView
 
 /**
  * BaseFragment，处理ViewModelProvider的初始化

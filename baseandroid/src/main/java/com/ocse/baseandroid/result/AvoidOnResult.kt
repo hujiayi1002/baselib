@@ -2,7 +2,7 @@ package com.ocse.baseandroid.result
 
 import android.content.Intent
 import androidx.fragment.app.FragmentActivity
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 
 /**
  * @author hujiayi

@@ -9,6 +9,6 @@ class App:BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         initFuel("")
-        ApiRetrofitManager.init("http://10.81.108.65:8090/")
+        ApiRetrofitManager.init("http://10.81.108.41:8099/")
 }
 }

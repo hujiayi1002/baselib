@@ -7,14 +7,11 @@ import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ocse.androidbaselib.bean.UserBean
 import com.ocse.androidbaselib.databinding.ActivityMainBinding
 import com.ocse.androidbaselib.model.BaseModel
 import com.ocse.baseandroid.base.BaseActivity
-import com.ocse.baseandroid.utils.DataStoreUtils
 import com.ocse.baseandroid.utils.ToastUtil
-import com.ocse.baseandroid.view.ChooseTakeBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,8 +23,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var vm: BaseModel
     override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         isNeedDoubleExit=true
         vm = get(BaseModel::class.java)
         vm.userMutableLiveData.observe(this,
@@ -47,25 +42,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val sd = ArrayList<String>()
         repeat(sd.size) {  }
         textView.setOnClickListener {
-//            vm.user()
-            val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@MainActivity)
-            bottomSheetDialog.show(supportFragmentManager,"")
-            bottomSheetDialog.setTakePop(object :ChooseTakeBottomSheetDialog.ChooseTake{
-                override fun take() {
-                    ToastUtil.show("123")
-                }
-
-                override fun album() {
-                    ToastUtil.show("album")
-
-                }
-
-                override fun dismiss() {
-                    ToastUtil.show("dismiss")
-                    bottomSheetDialog.dismiss()
-                }
-
-            })
+            vm.user()
+//            val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@MainActivity)
+//            bottomSheetDialog.show(supportFragmentManager,"")
+//            bottomSheetDialog.setTakePop(object :ChooseTakeBottomSheetDialog.ChooseTake{
+//                override fun take() {
+//                    ToastUtil.show("123")
+//                }
+//
+//                override fun album() {
+//                    ToastUtil.show("album")
+//
+//                }
+//
+//                override fun dismiss() {
+//                    ToastUtil.show("dismiss")
+//                    bottomSheetDialog.dismiss()
+//                }
+//
+//            })
 
 
         }

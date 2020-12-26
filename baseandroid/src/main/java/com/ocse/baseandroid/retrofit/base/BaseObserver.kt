@@ -7,11 +7,13 @@ import com.google.gson.Gson
 import com.google.gson.JsonIOException
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
+import com.ocse.baseandroid.base.BaseApplication
 import com.ocse.baseandroid.utils.NetworkUtil
 import com.ocse.baseandroid.utils.ObtainApplication
 import com.ocse.baseandroid.utils.ToastUtil.Companion.show
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.observers.DisposableObserver
+import com.ocse.baseandroid.view.LoadingView
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketException
@@ -21,15 +23,32 @@ import java.net.SocketException
  */
 abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
     DisposableObserver<T>() {
+
+    private val loading =
+        LoadingView.Builder(BaseApplication.activities[BaseApplication.activities.size - 1]).create()
+
     init {
         compositeDisposable.add(this)
     }
+
+    override fun onStart() {
+        super.onStart()
+        try {
+            loading.show()
+        } catch (e: Exception) {
+
+        }
+
+    }
+
     override fun onNext(t: T) {
         _onNext(t)
         Log.w("hu", "onNext = " + Gson().toJson(t))
+        loading.dismiss()
     }
 
     override fun onError(e: Throwable) {
+        loading.dismiss()
         var reason = e.message
         //网络异常
         if (!NetworkUtil.isConnected(ObtainApplication.getApp())) {
@@ -63,7 +82,7 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
     }
 
     override fun onComplete() {
-        //ToDo Something
+        loading.dismiss()
     }
 
     /**

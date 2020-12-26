@@ -11,7 +11,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import io.reactivex.plugins.RxJavaPlugins
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.set
@@ -30,11 +30,11 @@ open class BaseApplication : Application() {
 
     init {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.colorBg, android.R.color.black);//全局设置主题颜色
+            layout.setPrimaryColorsId(R.color.bgColor, android.R.color.black);//全局设置主题颜色
             ClassicsHeader(context)
         }
         SmartRefreshLayout.setDefaultRefreshFooterCreator() { context, layout ->
-            layout.setPrimaryColorsId(R.color.colorBg, android.R.color.black);//全局设置主题颜色
+            layout.setPrimaryColorsId(R.color.bgColor, android.R.color.black);//全局设置主题颜色
             ClassicsFooter(context)
         }
     }

@@ -17,14 +17,14 @@ import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.ToastUtil
 import com.ocse.baseandroid.view.LoadingView
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.disposables.CompositeDisposable
 import kotlin.system.exitProcess
 
 
 abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     AppCompatActivity(getLayoutId) {
     private var viewModelProvider: ViewModelProvider? = null
-    private lateinit var loadingView: LoadingView
+    private lateinit var loadingViewView: LoadingView
     private var hash: Int = 0
     private var lastClickTime: Long = 0
     private var spaceTime: Long = 2000
@@ -46,8 +46,8 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, layout)
         viewModelProvider = getViewModelProvider()
-        loadingView = LoadingView(this)
-        TAG=localClassName
+        loadingViewView = LoadingView.Builder(this).create()
+        TAG = localClassName
         initTitleBar("")
         initView()
         initData()
@@ -166,15 +166,15 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     }
 
 
-    open fun showLoading() {
-        if (!loadingView.isShowing) {
-            loadingView.show()
+    open fun loadingShow() {
+        if (!loadingViewView.isShowing) {
+            loadingViewView.show()
         }
 
     }
 
     open fun loadingDismiss() {
-        loadingView.dismiss()
+        loadingViewView.dismiss()
     }
 
     open fun loge(message: String) {

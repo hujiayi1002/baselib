@@ -5,7 +5,7 @@ import com.ocse.androidbaselib.bean.UserBean
 import com.ocse.androidbaselib.bean.VersionBean
 import com.ocse.baseandroid.retrofit.base.BaseRetrofit
 import com.ocse.baseandroid.utils.SharePreferenceUtil
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import kotlin.collections.HashMap
 
 class ApiRetrofit : BaseRetrofit() {
@@ -42,7 +42,6 @@ class ApiRetrofit : BaseRetrofit() {
         params["password"] = password
         params["client_id"] = "my-client"
         params["openid"] = "123456789"
-
        return switchSchedulers(getApiService().login(params))
     }
     fun getversion(

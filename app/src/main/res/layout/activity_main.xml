@@ -19,7 +19,7 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:background="@color/colorBg"
+            android:background="@color/bgColor"
             android:text="@{user.access_token}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

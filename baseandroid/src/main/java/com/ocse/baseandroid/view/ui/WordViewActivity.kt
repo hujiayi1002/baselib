@@ -12,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.DownLoadFileUtils
-import com.ocse.baseandroid.view.LoadingView
-import com.tbruyelle.rxpermissions3.RxPermissions
+import com.ocse.baseandroid.utils.PermissionUtils
 import com.tencent.smtt.sdk.TbsReaderView
 import kotlinx.android.synthetic.main.activity_word_view_acivity.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -72,7 +71,6 @@ class WordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
 
             override fun onDownloading(progress: Int) {
 
-
             }
 
             override fun onDownloadFailed() {
@@ -83,79 +81,11 @@ class WordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
 
     @SuppressLint("CheckResult")
     private fun getPermission() {
-        val rxPermission = RxPermissions(this)
-        rxPermission.request(
+        PermissionUtils.addPermission(this,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ).subscribe { aBoolean ->
-            if (aBoolean) {
-            }
-        }
+            Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
-//    private fun downLoadFile() {
-//        try {
-//            val client = OkHttpClient()
-//            val request = Request.Builder()
-//                .url(url)
-//                .addHeader("Authorization", "Bearer " + SharePreferenceUtil.getString("token"))
-//                .addHeader("csrf-csrf", "csrf-csrf")
-//                .build()
-//            client.newCall(request).enqueue(object : Callback {
-//                override fun onFailure(call: Call, e: IOException) {
-//                    runOnUiThread {
-//                        loadingView.dismiss()
-//                        // 下载失败
-//                        Toast.makeText(this@WordViewActivity, "文件下载失败!", Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
-//                }
-//
-//                @Throws(IOException::class)
-//                override fun onResponse(
-//                    call: Call,
-//                    response: Response
-//                ) {
-//                    var `is`: InputStream? = null
-//                    val buf = ByteArray(2048)
-//                    var len = 0
-//                    var fos: FileOutputStream? = null
-//                    // 储存下载文件的目录
-//                    val savePath: String? = ObtainApplication.getApp()?.filesDir?.absolutePath
-//                    try {
-//                        `is` = response.body!!.byteStream()
-//                        if (!File(savePath).exists()) {
-//                            File(savePath).mkdirs()
-//                        }
-//                        val file = File(savePath, fileName)
-//                        if (file.exists()) {
-//                            file.delete()
-//                        }
-//                        fos = FileOutputStream(file)
-//                        while (`is`.read(buf).also { len = it } != -1) {
-//                            fos.write(buf, 0, len)
-//                        }
-//                        fos.flush()
-//                        // 下载完成
-//                        val message = Message()
-//                        message.what = 6
-//                        message.obj = file
-//                        mHandler.sendMessage(message)
-//                    } catch (e: Exception) {
-//                        e.printStackTrace()
-//                    } finally {
-//                        try {
-//                            `is`?.close()
-//                            fos?.close()
-//                        } catch (e: IOException) {
-//                        }
-//                    }
-//                }
-//            })
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//    }
 
     var mHandler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -207,5 +137,4 @@ class WordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
         super.onDestroy()
         mTbsReaderView!!.onStop()
     }
-
 }
