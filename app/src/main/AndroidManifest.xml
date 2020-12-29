@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
+        <activity android:name=".NavigationActivity"></activity>
         <activity
             android:name=".MainActivity2"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -1,15 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.zhangke3016:MultilevelTreeList:1.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d842bedfbf3350276040bc1c7d3939c/jetified-MultilevelTreeList-1.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d842bedfbf3350276040bc1c7d3939c/jetified-MultilevelTreeList-1.0.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d842bedfbf3350276040bc1c7d3939c/jetified-MultilevelTreeList-1.0.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1c75cace197a49c16bf2da09786870d4/jetified-MultilevelTreeList-1.0.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1c75cace197a49c16bf2da09786870d4/jetified-MultilevelTreeList-1.0.2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1c75cace197a49c16bf2da09786870d4/jetified-MultilevelTreeList-1.0.2/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5bacb23fb5307541e9be83fc02370522/jetified-MultilevelTreeList-1.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5bacb23fb5307541e9be83fc02370522/jetified-MultilevelTreeList-1.0.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5bacb23fb5307541e9be83fc02370522/jetified-MultilevelTreeList-1.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/98015ef4e0a4f29ee980fd42617f627c/jetified-MultilevelTreeList-1.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/98015ef4e0a4f29ee980fd42617f627c/jetified-MultilevelTreeList-1.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/98015ef4e0a4f29ee980fd42617f627c/jetified-MultilevelTreeList-1.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5365d20fb129f8fa45a0fbe15e4b3fc4/jetified-MultilevelTreeList-1.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5365d20fb129f8fa45a0fbe15e4b3fc4/jetified-MultilevelTreeList-1.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5365d20fb129f8fa45a0fbe15e4b3fc4/jetified-MultilevelTreeList-1.0.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

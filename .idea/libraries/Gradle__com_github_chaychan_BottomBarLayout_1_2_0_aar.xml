@@ -1,15 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.chaychan:BottomBarLayout:1.2.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/860918f8837a860e0fb769f8be7590cf/jetified-BottomBarLayout-1.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/860918f8837a860e0fb769f8be7590cf/jetified-BottomBarLayout-1.2.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/860918f8837a860e0fb769f8be7590cf/jetified-BottomBarLayout-1.2.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96ad49b745fd6e64bc8053e3da2acad4/jetified-BottomBarLayout-1.2.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96ad49b745fd6e64bc8053e3da2acad4/jetified-BottomBarLayout-1.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96ad49b745fd6e64bc8053e3da2acad4/jetified-BottomBarLayout-1.2.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3387dd5896cd9776a391d1170369c2b1/jetified-BottomBarLayout-1.2.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3387dd5896cd9776a391d1170369c2b1/jetified-BottomBarLayout-1.2.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3387dd5896cd9776a391d1170369c2b1/jetified-BottomBarLayout-1.2.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40b5855697e0c0ead310c2f9b04c0ee6/jetified-BottomBarLayout-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40b5855697e0c0ead310c2f9b04c0ee6/jetified-BottomBarLayout-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40b5855697e0c0ead310c2f9b04c0ee6/jetified-BottomBarLayout-1.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba5114098731665f7fcd23bc06a30245/jetified-BottomBarLayout-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba5114098731665f7fcd23bc06a30245/jetified-BottomBarLayout-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba5114098731665f7fcd23bc06a30245/jetified-BottomBarLayout-1.2.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

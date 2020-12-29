@@ -2,7 +2,6 @@ package com.ocse.baseandroid.base
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -66,7 +65,8 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         TitleBuilder(title).setRightImgGone().setRightTextGone()
     }
 
-    open fun setMainTextView(title: String): TitleBuilder {
+    open fun setMainTextView(title: String): TitleBuilder? {
+        toolbar = findViewById(R.id.toolbar) ?: return null
         val titleBuilder = TitleBuilder(title)
         titleBuilder.setTitle()
         return titleBuilder
@@ -121,12 +121,12 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
 //            }
 //        }
 //    }
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && isNeedDoubleExit) {
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (isNeedDoubleExit) {
             exit()
-            return false
         }
-        return super.onKeyDown(keyCode, event)
     }
 
     private fun exit() {

@@ -1,6 +1,7 @@
 package com.ocse.baseandroid.retrofit.base
 
 import android.util.Log
+import com.ocse.baseandroid.retrofit.ApiRetrofitManager
 import com.ocse.baseandroid.utils.SharePreferenceUtil.getString
 import com.ocse.baseandroid.utils.ToastUtil.Companion.show
 import io.reactivex.Observable
@@ -29,7 +30,9 @@ open class BaseRetrofit {
     private val mHeaderMap: MutableMap<String, Any> = HashMap()
 
     private fun setRetrofit(): Retrofit? {
-        uRL = "http://10.81.108.41:8099/"
+//        uRL = "http://10.81.108.41:8099/"
+        uRL=ApiRetrofitManager.getInitUrl()
+        Log.e("TAG", "setRetrofit: " + uRL)
         if (uRL.isNullOrEmpty()) {
             throw Exception("请先设置BaseUrl")
         }
@@ -132,18 +135,30 @@ open class BaseRetrofit {
          */
         var okHttpClientBuilder: OkHttpClient.Builder? = null
 
-        @JvmStatic
-        val instance: BaseRetrofit
-            get() {
-                if (baseRetrofit == null) {
-                    synchronized(BaseRetrofit::class.java) {
-                        if (baseRetrofit == null) {
-                            baseRetrofit = BaseRetrofit()
-                        }
+        fun getInstance():BaseRetrofit {
+            if (baseRetrofit == null) {
+                synchronized(BaseRetrofit::class.java) {
+                    if (baseRetrofit == null) {
+                        baseRetrofit =
+                            BaseRetrofit()
                     }
                 }
-                return baseRetrofit!!
             }
+            return baseRetrofit!!
+        }
+
+//        @JvmStatic
+//        val instance: BaseRetrofit
+//            get() {
+//                if (baseRetrofit == null) {
+//                    synchronized(BaseRetrofit::class.java) {
+//                        if (baseRetrofit == null) {
+//                            baseRetrofit = BaseRetrofit()
+//                        }
+//                    }
+//                }
+//                return baseRetrofit!!
+//            }
 
         /**
          * 线程切换

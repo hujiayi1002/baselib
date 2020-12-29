@@ -33,7 +33,7 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
     private lateinit var imgRight: ImageView
     private lateinit var toolbar: Toolbar
 
-    abstract fun onViewCreated()
+    abstract fun onViewCreated(view: View)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +55,7 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTitleBar("")
-        onViewCreated()
+        onViewCreated(view)
     }
 
     private fun initTitleBar(title: String) {
@@ -70,7 +70,8 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
 
     }
 
-    fun setMainTextView(title: String): TitleBuilder {
+    fun setMainTextView(title: String): TitleBuilder? {
+        toolbar = bindingUtil.root.findViewById(R.id.toolbar) ?: return null
         val titleBuilder = TitleBuilder(title)
         titleBuilder.setTitle()
         return titleBuilder
@@ -137,22 +138,31 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
             return this
         }
 
-         fun setLeftBackGone(): TitleBuilder {
+        fun setLeftBackGone(): TitleBuilder {
             relBack.visibility = View.GONE
             return this
         }
 
-         fun setLeftBackVisible(): TitleBuilder {
+        fun setLeftBackVisible(): TitleBuilder {
             relBack.visibility = View.VISIBLE
             return this
         }
 
-         fun setRightTextGone(): TitleBuilder {
+        fun setOnBackPressed(onBackPressed: BackPressed): TitleBuilder {
+            relBack.visibility = View.VISIBLE
+            relBack.setOnClickListener {
+                onBackPressed.onBackPressed()
+            }
+            return this
+        }
+
+
+        fun setRightTextGone(): TitleBuilder {
             tvRight.visibility = View.GONE
             return this
         }
 
-         fun setRightText(text: String): TitleBuilder {
+        fun setRightText(text: String): TitleBuilder {
             tvRight.visibility = View.VISIBLE
             tvRight.text = text
             return this
@@ -164,18 +174,20 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
         }
 
          fun setBackgroundColor(color: Int): TitleBuilder {
-            if (::toolbar.isInitialized) {
-                toolbar.setBackgroundColor(color)
-            }
-            return this
-        }
+             if (::toolbar.isInitialized) {
+                 toolbar.setBackgroundColor(color)
+             }
+             return this
+         }
 
-         fun setRightImg(resource: Int): TitleBuilder {
+        fun setRightImg(resource: Int): TitleBuilder {
             imgRight.visibility = View.VISIBLE
             imgRight.setImageResource(resource)
             return this
         }
+    }
 
-
+    interface BackPressed {
+        fun onBackPressed()
     }
 }

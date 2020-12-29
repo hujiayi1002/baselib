@@ -42,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val sd = ArrayList<String>()
         repeat(sd.size) {  }
         textView.setOnClickListener {
+            loadingShow()
             vm.user()
 //            val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@MainActivity)
 //            bottomSheetDialog.show(supportFragmentManager,"")
@@ -66,7 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
         button.setOnClickListener {
             ToastUtil.show("1234")
-                        val intent = Intent(this, MainActivity2::class.java)
+                        val intent = Intent(this, NavigationActivity::class.java)
             // create the transition animation - the images in the layouts
             // of both activities are defined with android:transitionName="robot"
             val options = ActivityOptions
