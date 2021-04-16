@@ -70,17 +70,6 @@ private constructor() : ImageEngine {
     companion object {
         //获取单例
         //单例
-        var instance: GlideEngine? = null
-            get() {
-                if (null == field) {
-                    synchronized(GlideEngine::class.java) {
-                        if (null == field) {
-                            field = GlideEngine()
-                        }
-                    }
-                }
-                return field
-            }
-            private set
+        val instance by lazy { GlideEngine() }
     }
 }
