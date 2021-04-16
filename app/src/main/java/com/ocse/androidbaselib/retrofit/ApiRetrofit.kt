@@ -3,7 +3,7 @@ package com.ocse.androidbaselib.retrofit
 import android.util.Log
 import com.ocse.androidbaselib.bean.UserBean
 import com.ocse.androidbaselib.bean.VersionBean
-import com.ocse.baseandroid.retrofit.base.BaseRetrofit
+import com.ocse.baseandroid.net.base.BaseRetrofit
 import com.ocse.baseandroid.utils.SharePreferenceUtil
 import io.reactivex.Observable
 import kotlin.collections.HashMap

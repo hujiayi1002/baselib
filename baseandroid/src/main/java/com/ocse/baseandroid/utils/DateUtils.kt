@@ -1,13 +1,14 @@
 package com.ocse.baseandroid.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  */
+@SuppressLint("SimpleDateFormat")
 object DateUtils {
     /**
      * 缺省的日期显示格式： yyyy-MM-dd
@@ -21,6 +22,7 @@ object DateUtils {
     const val DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
     const val DEFAULT_COMMON_DATETIME_FORMAT = "yyyy-MM-dd HH:mm"
     const val DEFAULT_DATE_YY_MM_DD = "MM/dd HH:mm"
+
     private val sFormatMessageToday = SimpleDateFormat("今天")
     private val sFormatToday = SimpleDateFormat("今天 HH:mm")
     private val sFormatHourMinute = SimpleDateFormat("HH:mm")
@@ -39,98 +41,98 @@ object DateUtils {
     private val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
     @Throws(ParseException::class)
-    fun formatDate(date: Date?): String {
+    fun formatDate(date: Date): String {
         synchronized(
             sdf
         ) { return sdf.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parse(strDate: String?): Date {
+    fun parse(strDate: String): Date? {
         synchronized(
             sdf
         ) { return sdf.parse(strDate) }
     }
 
     @Throws(ParseException::class)
-    fun formatTodayDate(date: Date?): String {
+    fun formatTodayDate(date: Date): String {
         synchronized(
             sFormatToday
         ) { return sFormatToday.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parseToday(strDate: String?): Date {
+    fun parseToday(strDate: String): Date? {
         synchronized(
             sFormatToday
         ) { return sFormatToday.parse(strDate) }
     }
 
     @Throws(ParseException::class)
-    fun formatThisYearDate(date: Date?): String {
+    fun formatThisYearDate(date: Date): String {
         synchronized(
             sFormatThisYear
         ) { return sFormatThisYear.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parseThisYear(strDate: String?): Date {
+    fun parseThisYear(strDate: String): Date ?{
         synchronized(
             sFormatThisYear
         ) { return sFormatThisYear.parse(strDate) }
     }
 
     @Throws(ParseException::class)
-    fun formatOtherYearDate(date: Date?): String {
+    fun formatOtherYearDate(date: Date): String {
         synchronized(
             sFormatOtherYear
         ) { return sFormatOtherYear.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parseOtherYear(strDate: String?): Date {
+    fun parseOtherYear(strDate: String): Date? {
         synchronized(
             sFormatOtherYear
         ) { return sFormatOtherYear.parse(strDate) }
     }
 
     @Throws(ParseException::class)
-    fun formatMessageToday(date: Date?): String {
+    fun formatMessageToday(date: Date): String {
         synchronized(
             sFormatMessageToday
         ) { return sFormatMessageToday.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parseMessageToday(strDate: String?): Date {
+    fun parseMessageToday(strDate: String): Date? {
         synchronized(
             sFormatMessageToday
         ) { return sFormatMessageToday.parse(strDate) }
     }
 
     @Throws(ParseException::class)
-    fun formatMessageThisYear(date: Date?): String {
+    fun formatMessageThisYear(date: Date): String {
         synchronized(
             sFormatMessageThisYear
         ) { return sFormatMessageThisYear.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parseMessageThisYear(strDate: String?): Date {
+    fun parseMessageThisYear(strDate: String): Date? {
         synchronized(
             sFormatMessageThisYear
         ) { return sFormatMessageThisYear.parse(strDate) }
     }
 
     @Throws(ParseException::class)
-    fun formatMessageOtherYear(date: Date?): String {
+    fun formatMessageOtherYear(date: Date): String {
         synchronized(
             sFormatMessageOtherYear
         ) { return sFormatMessageOtherYear.format(date) }
     }
 
     @Throws(ParseException::class)
-    fun parseMessageOtherYear(strDate: String?): Date {
+    fun parseMessageOtherYear(strDate: String): Date ?{
         synchronized(
             sFormatMessageOtherYear
         ) { return sFormatMessageOtherYear.parse(strDate) }
@@ -181,7 +183,7 @@ object DateUtils {
         ).format(d)
     }
 
-    fun getTimeWithoutHour(date: Date?): String {
+    fun getTimeWithoutHour(date: Date): String {
         val format = SimpleDateFormat(
             DEFAULT_DATE_FORMAT,
             Locale.getDefault()
@@ -211,7 +213,7 @@ object DateUtils {
      * @return
      * @throws ParseException
      */
-    fun dateToStamp(dateStr: String?): Long {
+    fun dateToStamp(dateStr: String): Long {
         val format = SimpleDateFormat(
             DEFAULT_DATE_FORMAT,
             Locale.getDefault()
@@ -230,7 +232,7 @@ object DateUtils {
      * @param time 秒单位
      * @return
      */
-    fun getDateWithoutHourByPoint(time: Long): String {
+    private fun getDateWithoutHourByPoint(time: Long): String {
         val timeMill = time * 1000 // 转成毫秒
         val d = Date(timeMill)
         val format = SimpleDateFormat(
@@ -263,7 +265,7 @@ object DateUtils {
         return dayToTime(time, true, context)
     }
 
-    fun dayToNow(
+    private fun dayToNow(
         time: Long,
         displayHour: Boolean,
         context: Context?
@@ -306,7 +308,7 @@ object DateUtils {
         }
     }
 
-    fun dayToTime(
+    private fun dayToTime(
         time: Long,
         displayHour: Boolean,
         context: Context?
@@ -417,7 +419,7 @@ object DateUtils {
         val start = startHour * 60
         val end = endHour * 60
         val minuteOfDay = hour.toInt() * 60 + minute.toInt()
-        Log.i("stf", "--hour:minute-->$hour:$minute")
+        Logger.e("stf--hour:minute-->$hour:$minute")
         return minuteOfDay >= start && minuteOfDay <= end
     }
 }

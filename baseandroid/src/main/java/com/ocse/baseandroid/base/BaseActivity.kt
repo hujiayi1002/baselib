@@ -1,7 +1,6 @@
 package com.ocse.baseandroid.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -14,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
+import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.utils.ToastUtil
 import com.ocse.baseandroid.view.LoadingView
 import io.reactivex.disposables.CompositeDisposable
@@ -22,13 +22,13 @@ import kotlin.system.exitProcess
 
 abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     AppCompatActivity(getLayoutId) {
-    private var viewModelProvider: ViewModelProvider? = null
+    private lateinit var viewModelProvider: ViewModelProvider
     private lateinit var loadingViewView: LoadingView
     private var hash: Int = 0
     private var lastClickTime: Long = 0
     private var spaceTime: Long = 2000
     open val layout = getLayoutId
-    open var dataBinding: V? = null
+    open lateinit var dataBinding: V
     private var mCompositeDisposable = CompositeDisposable()
     open var TAG =""
     open val mContext by lazy { this@BaseActivity }
@@ -43,6 +43,7 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar(true)
         dataBinding = DataBindingUtil.setContentView(this, layout)
         viewModelProvider = getViewModelProvider()
         loadingViewView = LoadingView.Builder(this).create()
@@ -179,17 +180,15 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
 
     open fun loge(message: String) {
         var tag = "Tag:${localClassName}"
-        Log.e(tag, "hu--$message")
+        Logger.e(tag)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (dataBinding != null) {
             dataBinding?.unbind()
-            dataBinding = null
             mCompositeDisposable.clear()
         }
-        viewModelProvider = null
     }
 
 

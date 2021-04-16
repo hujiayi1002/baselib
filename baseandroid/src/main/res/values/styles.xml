@@ -41,4 +41,16 @@
         </attr>
     </declare-styleable>
 
+    <!--name为声明的"属性集合"名，可以随便取，但是最好是设置为跟我们的View一样的名称-->
+    <declare-styleable name="TitleBarView">
+
+        <attr name="icon_back" format="reference" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="rightTextColor" format="reference|color" />
+        <attr name="rightImg" format="reference" />
+        <attr name="titleText" format="string" />
+        <attr name="rightText" format="string" />
+        <attr name="backgroundColor" format="reference|color" />
+
+    </declare-styleable>
 </resources>

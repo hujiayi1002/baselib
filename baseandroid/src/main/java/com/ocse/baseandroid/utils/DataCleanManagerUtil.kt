@@ -23,7 +23,7 @@ object DataCleanManagerUtil {
     /**
      * * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache) * *
      */
-    fun cleanInternalCache(context: Context) {
+    private fun cleanInternalCache(context: Context) {
         deleteFolderFile(context.cacheDir.path, true)
     }
 
@@ -32,7 +32,7 @@ object DataCleanManagerUtil {
      *
      * @param context
      */
-    fun cleanDatabases(context: Context) {
+    private fun cleanDatabases(context: Context) {
         deleteFilesByDirectory(
             File(
                 "/data/data/"
@@ -46,7 +46,7 @@ object DataCleanManagerUtil {
      *
      * @param context
      */
-    fun cleanSharedPreference(context: Context) {
+    private fun cleanSharedPreference(context: Context) {
         deleteFilesByDirectory(
             File(
                 "/data/data/"
@@ -70,7 +70,7 @@ object DataCleanManagerUtil {
      *
      * @param context
      */
-    fun cleanFiles(context: Context) {
+    private fun cleanFiles(context: Context) {
         deleteFilesByDirectory(context.filesDir)
     }
 
@@ -79,7 +79,7 @@ object DataCleanManagerUtil {
      *
      * @param context
      */
-    fun cleanExternalCache(context: Context) {
+    private fun cleanExternalCache(context: Context) {
         if (Environment.getExternalStorageState() ==
             Environment.MEDIA_MOUNTED
         ) {
@@ -92,7 +92,7 @@ object DataCleanManagerUtil {
      *
      * @param filePath
      */
-    fun cleanCustomCache(filePath: String?) {
+    private fun cleanCustomCache(filePath: String?) {
         deleteFilesByDirectory(File(filePath))
     }
 
@@ -157,7 +157,7 @@ object DataCleanManagerUtil {
      * @param deleteThisPath
      * @return
      */
-    fun deleteFolderFile(filePath: String?, deleteThisPath: Boolean) {
+    private fun deleteFolderFile(filePath: String?, deleteThisPath: Boolean) {
         if (!TextUtils.isEmpty(filePath)) {
             try {
                 val file = File(filePath)
@@ -177,7 +177,6 @@ object DataCleanManagerUtil {
                     }
                 }
             } catch (e: Exception) {
-// TODO Auto-generated catch block
                 e.printStackTrace()
             }
         }
@@ -189,7 +188,7 @@ object DataCleanManagerUtil {
      * @param size
      * @return
      */
-    fun getFormatSize(size: Double): String {
+    private fun getFormatSize(size: Double): String {
         val kiloByte = size / 1024
         if (kiloByte < 1) {
             return size.toString() + "B"

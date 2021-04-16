@@ -5,6 +5,7 @@ import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import com.ocse.baseandroid.R
+import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.utils.ToastUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
@@ -56,7 +57,7 @@ open class BaseApplication : Application() {
 
             override fun onViewInitFinished(arg0: Boolean) {
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.d("app", " onViewInitFinished is $arg0")
+                Logger.e("app onViewInitFinished is $arg0")
             }
 
             override fun onCoreInitFinished() {
@@ -74,8 +75,8 @@ open class BaseApplication : Application() {
             }
             override fun onActivityResumed(activity: Activity) {
                 activities.add(activity)
-                Log.e("TAG", "onActivityCreated: "+activity.localClassName )
-                Log.e("TAG", "onActivityCreated: " + activities.size)
+               Logger.e("onActivityCreated: "+activity.localClassName )
+                Logger.e("onActivityCreated: " + activities.size)
                 count++
             }
             override fun onActivityPaused(activity: Activity) {
@@ -86,7 +87,7 @@ open class BaseApplication : Application() {
                 activities.remove(activity)
                 if (count == 0) {
                     isForeground = false
-                    Log.e("TAG", "onActivityDestroyed: " + activities.size)
+                    Logger.e("onActivityDestroyed: " + activities.size)
                     ToastUtil.show("当前APP已经不在前台，请谨慎操作")
                 }
             }

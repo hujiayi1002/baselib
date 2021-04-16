@@ -59,10 +59,10 @@ class InstallApkUtils {
                 )
             builder.setView(view)
             if (isForce) {
-                view.tv_no.visibility = View.INVISIBLE
+                view.tv_no_upgrade.visibility = View.INVISIBLE
             }
             val dialog = builder.create()
-            view.tv_no.setOnClickListener { dialog.dismiss() }
+            view.tv_no_upgrade.setOnClickListener { dialog.dismiss() }
             view.tv_sure.setOnClickListener {
                 downLoadApk(urlPath, bt)
                 dialog.dismiss()

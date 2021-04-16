@@ -13,7 +13,6 @@ import kotlin.math.abs
  * <br></br>
  * Describe:键盘的显示-关闭-以及键盘高度的监听 工具类
  * <br></br>
- * Author: reese on 2018/7/11.
  * <br></br>
  */
 class KeyBordStateUtil(context: Activity) {

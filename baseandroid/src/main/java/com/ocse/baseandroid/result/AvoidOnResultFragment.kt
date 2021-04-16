@@ -14,7 +14,7 @@ import kotlin.collections.HashMap
 class AvoidOnResultFragment : Fragment() {
     private val mSubjects: MutableMap<Int, PublishSubject<ActivityResultInfo>?> =
         HashMap()
-    private val mCallbacks: MutableMap<Int, AvoidOnResult.Callback?> =
+    private val mCallbacks: MutableMap<Int, ActivityOnResult.Callback?> =
         HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class AvoidOnResultFragment : Fragment() {
         }
     }
 
-    fun startForResult(intent: Intent?, callback: AvoidOnResult.Callback?) {
+    fun startForResult(intent: Intent?, callback: ActivityOnResult.Callback?) {
         val requestCode = generateRequestCode()
         mCallbacks[requestCode] = callback
         startActivityForResult(intent, requestCode)

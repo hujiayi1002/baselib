@@ -11,13 +11,14 @@ import com.ocse.baseandroid.R
 class LoadingView private constructor(context: Context) : Dialog(context, R.style.dialog) {
     class Builder(context: Context) {
         private val mLayout: View
-        private val mMessage: TextView
+        private var mMessage: TextView
         private val mDialog: LoadingView = LoadingView(context)
 
         /**
          * 设置 Message
          */
         fun setMessage(message: String): Builder {
+            mMessage.visibility = View.VISIBLE
             mMessage.text = message
             return this
         }
@@ -28,6 +29,7 @@ class LoadingView private constructor(context: Context) : Dialog(context, R.styl
             mDialog.setCanceledOnTouchOutside(false) //用户不可以点击外部来关闭 Dialog
             return mDialog
         }
+
 
         init {
             val inflater =

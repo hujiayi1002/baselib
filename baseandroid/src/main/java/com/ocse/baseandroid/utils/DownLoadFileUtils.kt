@@ -12,57 +12,6 @@ import java.io.InputStream
  */
 object DownLoadFileUtils {
     /**
-     * @param url 下载连接
-     */
-//    fun download(url: String?, bt: String) {
-//        val request = Request.Builder().url(url!!).build()
-//        val okHttpClient = OkHttpClient()
-//        okHttpClient.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                // 下载失败
-//                Log.e("hu", "onFailure" + e.message)
-//            }
-//
-//            @Throws(IOException::class)
-//            override fun onResponse(
-//                call: Call,
-//                response: Response
-//            ) {
-//                var `is`: InputStream? = null
-//                var fos: FileOutputStream? = null
-//                val buf = ByteArray(2048)
-//                var len = 0
-//                // 储存下载文件的目录
-//                val savePath = ObtainApplication.getApp()!!.filesDir.path
-//                try {
-//                    `is` = response.body!!.byteStream()
-//                    val total = response.body!!.contentLength()
-//                    val file =
-//                        File(savePath, System.currentTimeMillis().toString() + bt)
-//                    fos = FileOutputStream(file)
-//                    var sum: Long = 0
-//                    while (`is`.read(buf).also { len = it } != -1) {
-//                        fos.write(buf, 0, len)
-//                        sum += len.toLong()
-//                        val progress = (sum * 1.0f / total * 100).toInt()
-//                        // 下载中
-//                    }
-//                    fos.flush()
-//                    // 下载完成
-//                } catch (e: Exception) {
-//                    Log.e("hu", "onFailure" + e.message)
-//                } finally {
-//                    try {
-//                        `is`?.close()
-//                        fos?.close()
-//                    } catch (e: IOException) {
-//                    }
-//                }
-//            }
-//        })
-//    }
-
-    /**
      * @param url      下载连接
      * @param listener 下载监听
      */

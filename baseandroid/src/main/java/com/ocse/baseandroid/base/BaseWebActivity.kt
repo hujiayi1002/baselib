@@ -32,16 +32,16 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
     abstract fun setUrl(): String
     override fun initView() {
         url = setUrl()
-        dataBinding?.x5Web?.addJavascriptInterface(JSScript(), "android")
+        dataBinding.x5Web.addJavascriptInterface(JSScript(), "android")
         loadingShow()
-        dataBinding?.x5Web?.webViewClient = object : WebViewClient() {
+        dataBinding.x5Web.webViewClient = object : WebViewClient() {
             override fun onPageFinished(p0: WebView?, p1: String) {
                 super.onPageFinished(p0, p1)
                 url = p1
                 loadingDismiss()
             }
         }
-        dataBinding?.x5Web?.webChromeClient = object : WebChromeClient() {
+        dataBinding.x5Web.webChromeClient = object : WebChromeClient() {
             // For Android  >= 5.0
             override fun onShowFileChooser(
                 webView: WebView?,
@@ -50,8 +50,8 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
             ): Boolean {
                 uploadFiles = filePathCallback
                 val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@BaseWebActivity)
-                bottomSheetDialog?.show(supportFragmentManager, "")
-                bottomSheetDialog?.setTakePop(object : ChooseTakeBottomSheetDialog.ChooseTake {
+                bottomSheetDialog.show(supportFragmentManager, "")
+                bottomSheetDialog.setTakePop(object : ChooseTakeBottomSheetDialog.ChooseTake {
                     override fun album() {
                         openFileChooseProcess()
                     }
@@ -130,7 +130,7 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
         if (resultCode == Activity.RESULT_CANCELED) {
             if (null != uploadFiles) {
                 uploadFiles?.onReceiveValue(null)
-                dataBinding?.x5Web?.loadUrl(url)
+                dataBinding.x5Web.loadUrl(url)
                 uploadFiles = null
             }
         }
@@ -138,8 +138,8 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (dataBinding?.x5Web?.canGoBack()!!) {
-                dataBinding?.x5Web?.goBack()
+            if (dataBinding.x5Web.canGoBack()!!) {
+                dataBinding.x5Web.goBack()
             } else {
                 finish()
             }

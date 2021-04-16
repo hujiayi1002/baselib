@@ -15,13 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ocse.baseandroid.R
+import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.view.LoadingView
 
 /**
  * BaseFragment，处理ViewModelProvider的初始化
  * */
 abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) : Fragment() {
-    private var viewModelProvider: ViewModelProvider? = null
+    private lateinit var viewModelProvider: ViewModelProvider
     private lateinit var loadingView: LoadingView
     private var hash: Int = 0
     private var lastClickTime: Long = 0
@@ -117,17 +118,13 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
         }
 
     }
-    open fun loge(message: String) {
-        val tag = "Tag:${activity?.localClassName}"
-        Log.e(tag, "hu--$message")
-    }
+
     open fun loadingDismiss() {
         loadingView.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModelProvider = null
     }
 
     inner class TitleBuilder(title: String) {

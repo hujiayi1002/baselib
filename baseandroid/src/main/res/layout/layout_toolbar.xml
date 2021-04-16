@@ -35,6 +35,7 @@
                     android:layout_height="?android:attr/actionBarSize">
 
                     <ImageView
+                        android:id="@+id/ivBack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -59,14 +60,11 @@
                     android:layout_alignParentRight="true"
                     android:gravity="center"
                     android:paddingRight="10dp"
-                    android:text="保存"
-                    android:textColor="@color/colorPrimary"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/imgRight"
                     android:layout_width="30dp"
-
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/tvRight"

@@ -14,19 +14,19 @@ class BaseModel : BaseViewModel<Any>() {
 
     fun user(){
             instance.login("admin", "123456")
-                .subscribe(object : BaseObserver<UserBean?>(compositeDisposable) {
+                .subscribe(object : BaseObserver<UserBean>(compositeDisposable) {
                     override fun onError(e: Throwable) {
                         super.onError(e)
                         userMutableLiveData.postValue(null)
                     }
 
-                    override fun _onNext(entity: UserBean?) {
+                    override fun _onNext(entity: UserBean) {
                         userMutableLiveData.postValue(entity)
                     }
 //                    override fun _onNext(entity: UserBean) {
 //                        userMutableLiveData.postValue(entity)
 //                        saveString("token", entity.access_token)
-//                        //                getVersion();
+//                        //getVersion();
 //                    }
                 })
 
