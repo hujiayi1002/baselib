@@ -74,7 +74,7 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
     }
 
     private fun openFileChooseProcess() {
-        EasyPhotos.createAlbum(this, false, GlideEngine.getInstance())
+        EasyPhotos.createAlbum(this, false, GlideEngine.instance)
             .start(object : SelectCallback() {
                 override fun onResult(photos: ArrayList<Photo>, isOriginal: Boolean) {
                     onReceiveValue(photos[0].path)

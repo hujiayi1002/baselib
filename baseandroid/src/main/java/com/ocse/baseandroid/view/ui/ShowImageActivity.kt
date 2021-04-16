@@ -37,6 +37,6 @@ class ShowImageActivity : BaseActivity<ActivityShowImageBinding>(R.layout.activi
         name?.let {
             setMainTextView(it)
         }
-        GlideEngine.getInstance().loadPhoto(path, dataBinding?.photoView)
+        GlideEngine.instance.loadPhoto(path, dataBinding?.photoView)
     }
 }

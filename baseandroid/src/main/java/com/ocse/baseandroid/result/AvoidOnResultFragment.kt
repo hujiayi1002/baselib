@@ -12,9 +12,9 @@ import kotlin.collections.HashMap
  * @author hujiayi
  */
 class AvoidOnResultFragment : Fragment() {
-    private val mSubjects: MutableMap<Int, PublishSubject<ActivityResultInfo>?> =
+    private val mSubjects: MutableMap<Int, PublishSubject< ActivityResultInfo>?> =
         HashMap()
-    private val mCallbacks: MutableMap<Int, ActivityOnResult.Callback?> =
+    private val mCallbacks: MutableMap<Int,  ActivityOnResult.Callback?> =
         HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +22,9 @@ class AvoidOnResultFragment : Fragment() {
         retainInstance = true
     }
 
-    fun startForResult(intent: Intent?): Observable<ActivityResultInfo> {
+    fun startForResult(intent: Intent?): Observable< ActivityResultInfo> {
         val subject =
-            PublishSubject.create<ActivityResultInfo>()
+            PublishSubject.create< ActivityResultInfo>()
         return subject.doOnSubscribe {
             val requestCode = generateRequestCode()
             mSubjects[requestCode] = subject
@@ -32,7 +32,7 @@ class AvoidOnResultFragment : Fragment() {
         }
     }
 
-    fun startForResult(intent: Intent?, callback: ActivityOnResult.Callback?) {
+    fun startForResult(intent: Intent?, callback:  ActivityOnResult.Callback?) {
         val requestCode = generateRequestCode()
         mCallbacks[requestCode] = callback
         startActivityForResult(intent, requestCode)
@@ -47,7 +47,7 @@ class AvoidOnResultFragment : Fragment() {
         //rxjava方式的处理
         val subject = mSubjects.remove(requestCode)
         if (subject != null) {
-            subject.onNext(ActivityResultInfo(resultCode, data!!))
+            data?.let { ActivityResultInfo(resultCode, it) }?.let { subject.onNext(it) }
             subject.onComplete()
         }
 
@@ -65,4 +65,7 @@ class AvoidOnResultFragment : Fragment() {
             }
         }
     }
+
+ annotation class
+    inner class ActivityResultInfo(var resultCode: Int, var data: Intent)
 }
