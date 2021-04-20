@@ -30,11 +30,11 @@ class ActivityOnResult(activity: FragmentActivity) {
             .findFragmentByTag(TAG) as AvoidOnResultFragment?
     }
 
-    fun startForResult(intent: Intent?): Observable<AvoidOnResultFragment.ActivityResultInfo> {
+    fun startForResult(intent: Intent?): Observable<ActivityResultInfo> {
         return mAvoidOnResultFragment.startForResult(intent)
     }
 
-    fun startForResult(clazz: Class<*>?): Observable<AvoidOnResultFragment.ActivityResultInfo> {
+    fun startForResult(clazz: Class<*>?): Observable<ActivityResultInfo> {
         val intent = Intent(mAvoidOnResultFragment.activity, clazz)
         return startForResult(intent)
     }

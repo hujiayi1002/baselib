@@ -65,7 +65,4 @@ class AvoidOnResultFragment : Fragment() {
             }
         }
     }
-
- annotation class
-    inner class ActivityResultInfo(var resultCode: Int, var data: Intent)
 }
