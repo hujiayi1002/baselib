@@ -1,7 +1,6 @@
 package com.ocse.baseandroid.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ocse.baseandroid.R
-import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.view.LoadingView
 
 /**
@@ -27,7 +25,7 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
     private var hash: Int = 0
     private var lastClickTime: Long = 0
     private var spaceTime: Long = 2000
-    private lateinit var bindingUtil: V
+    lateinit var dataBinding: V
     private lateinit var relBack: RelativeLayout
     private lateinit var tvTitle: TextView
     private lateinit var tvRight: TextView
@@ -41,9 +39,9 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        bindingUtil =
+        dataBinding =
             DataBindingUtil.inflate(inflater, getBindView, container, false)
-        return bindingUtil.root
+        return dataBinding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +58,7 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
     }
 
     private fun initTitleBar(title: String) {
-        toolbar = bindingUtil.root.findViewById(R.id.toolbar) ?: return
+        toolbar = dataBinding.root.findViewById(R.id.toolbar) ?: return
         toolbar.setContentInsetsRelative(0, 0)
         relBack = toolbar.findViewById(R.id.relBack)
         tvTitle = toolbar.findViewById(R.id.tvTitle)
@@ -72,7 +70,7 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
     }
 
     fun setMainTextView(title: String): TitleBuilder? {
-        toolbar = bindingUtil.root.findViewById(R.id.toolbar) ?: return null
+        toolbar = dataBinding.root.findViewById(R.id.toolbar) ?: return null
         val titleBuilder = TitleBuilder(title)
         titleBuilder.setTitle()
         return titleBuilder

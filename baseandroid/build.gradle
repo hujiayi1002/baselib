@@ -33,6 +33,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+            applicationIdSuffix '.debug'
             resValue "string", "app_real_name", "baselib"
             buildConfigField "String", "API_HOST", "\"http://10.81.108.70:8090/\"" //API Host
             buildConfigField "String", "VUE_URL", "\"http://10.81.108.70:8090/\""

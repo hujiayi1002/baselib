@@ -36,6 +36,7 @@ class OtherFragment : BaseFragment<FragmentOtherBinding>(R.layout.fragment_other
     }
 
     override fun onViewCreated(view: View) {
+        bindingUtil.tvOther
         view.findViewById<TextView>(R.id.tvOther).setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_otherFragment_to_homeFragment)
         }
