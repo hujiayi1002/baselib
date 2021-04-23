@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.huantansheng.easyphotos.engine.ImageEngine
 
 class GlideEngine  //单例模式，私有构造方法
@@ -22,6 +24,19 @@ private constructor() : ImageEngine {
 
     fun loadPhoto(path: Any?, imageView: ImageView) {
         Glide.with(imageView.context).load(path).into(imageView)
+    }
+
+    fun loadPhotoCircle(path: Any?, roundingRadius: Int, imageView: ImageView) {
+        if (roundingRadius > 0) {
+            //设置图片圆角角度
+            val roundedCorners = RoundedCorners(roundingRadius)
+            //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+            val options = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
+            Glide.with(imageView.context).load(path).apply(options).into(imageView)
+        } else {
+            loadPhoto(path, imageView)
+        }
+
     }
 
     /**

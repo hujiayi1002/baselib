@@ -27,12 +27,12 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     private var hash: Int = 0
     private var lastClickTime: Long = 0
     private var spaceTime: Long = 2000
-    open val layout = getLayoutId
-    open lateinit var dataBinding: V
+    val layout = getLayoutId
+    lateinit var dataBinding: V
     private var mCompositeDisposable = CompositeDisposable()
-    open var TAG =""
-    open val mContext by lazy { this@BaseActivity }
-    open var isNeedDoubleExit = false
+    var TAG = ""
+    val mContext by lazy { this@BaseActivity }
+    var isNeedDoubleExit = false
     private var exitTime = 0L
     private lateinit var relBack: RelativeLayout
     private lateinit var tvTitle: TextView
@@ -124,10 +124,12 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
 //    }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         if (isNeedDoubleExit) {
             exit()
+        } else {
+            return
         }
+        super.onBackPressed()
     }
 
     private fun exit() {

@@ -59,12 +59,6 @@ class PermissionUtils {
                     } else {
 //                    Toast.makeText(activity, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
                     }
-//        val rxPermissions= RxPermissions(mContext)
-//        rxPermissions?.request(
-//            permissions.contentToString()
-//        )?.subscribe { aBoolean ->
-//            if (aBoolean) {
-//            }
                 }
         }
     }

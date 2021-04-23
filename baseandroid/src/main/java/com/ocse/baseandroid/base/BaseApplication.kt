@@ -3,7 +3,6 @@ package com.ocse.baseandroid.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.utils.ToastUtil
@@ -23,11 +22,11 @@ open class BaseApplication : Application() {
 
     companion object {
         var activities = ArrayList<Activity>()
+        val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { this }
     }
 
     private var count = 0
     private var isForeground = false
-    val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { this }
 
     init {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
@@ -42,46 +41,38 @@ open class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        RxJavaPlugins.setErrorHandler {
+            it.printStackTrace();//这里处理所有的Rxjava异常
+        }
+
+        QbSdk.setDownloadWithoutWifi(true)
         // 在调用TBS初始化、创建WebView之前进行如下配置
         val map = HashMap<String, Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true
         map[TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE] = true
         QbSdk.initTbsSettings(map)
 
-        RxJavaPlugins.setErrorHandler {
-            it.printStackTrace();//这里处理所有的Rxjava异常
-        }
-        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-
-        val cb = object : QbSdk.PreInitCallback {
-
-            override fun onViewInitFinished(arg0: Boolean) {
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Logger.e("app onViewInitFinished is $arg0")
-            }
-
-            override fun onCoreInitFinished() {
-            }
-        }
-        QbSdk.setDownloadWithoutWifi(true)
-        //x5内核初始化接口
-        QbSdk.initX5Environment(applicationContext, cb)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
 
             }
+
             override fun onActivityStarted(activity: Activity) {
 
             }
+
             override fun onActivityResumed(activity: Activity) {
                 activities.add(activity)
-               Logger.e("onActivityCreated: "+activity.localClassName )
+                Logger.e("onActivityCreated: " + activity.localClassName)
                 Logger.e("onActivityCreated: " + activities.size)
                 count++
             }
+
             override fun onActivityPaused(activity: Activity) {
 
             }
+
             override fun onActivityStopped(activity: Activity) {
                 count--
                 activities.remove(activity)
@@ -104,11 +95,26 @@ open class BaseApplication : Application() {
     }
 
     open fun initX5() {
+        QbSdk.setDownloadWithoutWifi(true)
         // 在调用TBS初始化、创建WebView之前进行如下配置
         val map = HashMap<String, Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true
         map[TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE] = true
         QbSdk.initTbsSettings(map)
+        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+//
+//        val cb = object : QbSdk.PreInitCallback {
+//
+//            override fun onViewInitFinished(arg0: Boolean) {
+//                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+//                Logger.e("app onViewInitFinished is $arg0")
+//            }
+//
+//            override fun onCoreInitFinished() {
+//            }
+//        }
+        //x5内核初始化接口
+//        QbSdk.initX5Environment(applicationContext, cb)
     }
 
     /**

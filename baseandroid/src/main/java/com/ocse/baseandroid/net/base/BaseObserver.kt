@@ -27,7 +27,6 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
 
     private val loading =
         LoadingView.Builder(BaseApplication.activities[BaseApplication.activities.size - 1]).create()
-
     init {
         compositeDisposable.add(this)
     }
