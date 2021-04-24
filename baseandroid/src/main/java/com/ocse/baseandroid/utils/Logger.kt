@@ -7,13 +7,16 @@ import com.ocse.baseandroid.BuildConfig
 class Logger {
     companion object {
         var TAG = "TAG"
+        private var enable = false
 
         fun setTag(tag: String) {
             TAG = tag
         }
-
+        fun setLoggerEnable(isEnable: Boolean) {
+            enable = isEnable
+        }
         fun e(msg: String?) {
-            if (BuildConfig.DEBUG&&!msg.isNullOrEmpty()) {
+            if (enable) {
                 Log.e(TAG, "_________________________________________________________________")
 //                val segmentSize = (3.7 * 1024).toInt()//一次只能打印4K长度,所以先打印3k
 //                var index = 0
@@ -23,7 +26,7 @@ class Logger {
 //                        msg.replace(logContent, "")
 //                        Log.e(TAG, logContent)
 //                    }
-                    Log.e(TAG, "$msg")
+                Log.e(TAG, "$msg")
                 }
             }
 
