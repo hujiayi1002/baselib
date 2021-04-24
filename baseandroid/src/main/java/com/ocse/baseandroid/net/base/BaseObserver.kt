@@ -24,24 +24,17 @@ import java.net.SocketException
 abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
     DisposableObserver<T>() {
 
-    private val loading =
-        LoadingView.Builder(BaseApplication.activities[BaseApplication.activities.size - 1]).create()
     init {
         compositeDisposable.add(this)
     }
 
     override fun onStart() {
         super.onStart()
-        try {
-            loading.show()
-        } catch (e: Exception) {
-        }
     }
 
     override fun onNext(t: T) {
         _onNext(t)
         Logger.e( "onNext = " + Gson().toJson(t))
-        loading.dismiss()
     }
 
     override fun onError(e: Throwable) {
@@ -74,12 +67,11 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
         }
         Logger.e(e.localizedMessage)
         _onError(e)
-        loading.dismiss()
         show(reason)
     }
 
     override fun onComplete() {
-        loading.dismiss()
+//        loading.dismiss()
     }
 
     /**

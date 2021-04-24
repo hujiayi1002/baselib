@@ -43,11 +43,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         repeat(sd.size)
         {}
         textView.setOnClickListener {
-            val loadingView = LoadingView.Builder(mContext)
-            loadingView.setMessage("123")
-            val dialog = loadingView.create()
-            dialog.show()
-//            vm.user()
+//            val loadingView = LoadingView.Builder(mContext)
+//            loadingView.setMessage("123")
+//            val dialog = loadingView.create()
+//            dialog.show()
+            vm.user()
 //            val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@MainActivity)
 //            bottomSheetDialog.show(supportFragmentManager,"")
 //            bottomSheetDialog.setTakePop(object :ChooseTakeBottomSheetDialog.ChooseTake{
