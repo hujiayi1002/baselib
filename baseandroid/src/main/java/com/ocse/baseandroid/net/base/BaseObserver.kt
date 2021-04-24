@@ -2,7 +2,6 @@ package com.ocse.baseandroid.retrofit.base
 
 import android.accounts.AccountsException
 import android.accounts.NetworkErrorException
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonIOException
 import com.google.gson.JsonParseException
@@ -46,7 +45,6 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
     }
 
     override fun onError(e: Throwable) {
-        loading.dismiss()
         var reason = e.message
         //网络异常
         if (!NetworkUtil.isConnected(ObtainApplication.getApp())) {
@@ -74,9 +72,10 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
         } else if (e is ClassCastException || e is IllegalStateException) {
             reason = "类型转换错误"
         }
-        show(reason)
-        Log.e("hu", "onError = " + e.localizedMessage)
+        Logger.e(e.localizedMessage)
         _onError(e)
+        loading.dismiss()
+        show(reason)
     }
 
     override fun onComplete() {

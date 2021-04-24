@@ -120,7 +120,7 @@ open class BaseRetrofit {
 //                Log.e("HttpLoggingInterceptor", "|-----------------网络日志-----------------｜")
 //                Log.e("HttpLoggingInterceptor", "|retrofitBack = $message                  |")
 //                Log.e("HttpLoggingInterceptor", "|__________________网络日志________________ |")
-                Logger.e(message)
+                Logger.e("$message")
             }
         }).setLevel(HttpLoggingInterceptor.Level.BODY)
 
