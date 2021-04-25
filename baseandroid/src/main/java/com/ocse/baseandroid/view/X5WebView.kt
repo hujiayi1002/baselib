@@ -2,6 +2,7 @@ package com.ocse.baseandroid.view
 
 import android.content.Context
 import android.os.Build
+import android.util.AttributeSet
 import com.ocse.baseandroid.utils.ObtainApplication
 import com.tencent.smtt.export.external.interfaces.SslError
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler
@@ -13,7 +14,22 @@ import com.tencent.smtt.sdk.WebViewClient
 /**
  * @author 11729
  */
-class X5WebView(p0: Context?) : WebView(p0) {
+class X5WebView : WebView {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(context,
+        attributeSet,
+        defStyleAttr)
+
+    constructor(
+        context: Context,
+        attributeSet: AttributeSet,
+        defStyleAttr: Int,
+        boolean: Boolean
+    ) : super(context,
+        attributeSet,
+        defStyleAttr, boolean)
+
     private val client: WebViewClient =
         object : WebViewClient() {
             /**
