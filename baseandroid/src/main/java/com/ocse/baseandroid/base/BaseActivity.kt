@@ -124,21 +124,19 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
 //    }
 
     override fun onBackPressed() {
-        if (isNeedDoubleExit) {
             exit()
-        } else {
-            return
-        }
-        super.onBackPressed()
     }
 
     private fun exit() {
-        if (System.currentTimeMillis() - exitTime > 2000) {
-            ToastUtil.show("再按一次退出程序")
-            exitTime = System.currentTimeMillis()
-        } else {
-//            finish()
-            exitProcess(0)
+        if (isNeedDoubleExit) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtil.show("再按一次退出程序")
+                exitTime = System.currentTimeMillis()
+            } else {
+                exitProcess(0)
+            }
+        }else{
+            finish()
         }
     }
 
