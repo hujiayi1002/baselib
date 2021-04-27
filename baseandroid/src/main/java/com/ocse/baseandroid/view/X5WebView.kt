@@ -3,7 +3,6 @@ package com.ocse.baseandroid.view
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
-import com.ocse.baseandroid.utils.ObtainApplication
 import com.tencent.smtt.export.external.interfaces.SslError
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
@@ -66,29 +65,48 @@ class X5WebView : WebView {
             this.x5WebViewExtension.isVerticalScrollBarEnabled = false //垂直不显示滚动按钮
         }
         webSetting.javaScriptEnabled = true
-        webSetting.javaScriptCanOpenWindowsAutomatically = true
+        webSetting.javaScriptCanOpenWindowsAutomatically = true //设置允许js弹出alert对话框
+
         webSetting.allowFileAccess = true
-        //        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        webSetting.setSupportZoom(true)
-        webSetting.builtInZoomControls = true
-        webSetting.useWideViewPort = true
-        webSetting.setSupportMultipleWindows(true)
-        webSetting.loadWithOverviewMode = true
-        webSetting.setAppCacheEnabled(true)
-        webSetting.defaultTextEncodingName = "utf-8"
+
+        //        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);//设置布局，会引起WebView的重新布局,默认值NARROW_COLUMNS
+
+        webSetting.setSupportZoom(true) //进行控制缩放
+
+        webSetting.builtInZoomControls = true //是否使用内置的缩放机制
+
+        webSetting.useWideViewPort = true //将图片调整到适合webview的大小
+
+        webSetting.setSupportMultipleWindows(true) //默认false false-WebView默人不支持新窗口
+
+        webSetting.loadWithOverviewMode = true // 缩放至屏幕的大小
+
+        webSetting.setAppCacheEnabled(true) //应用缓存API是否可用，默认值false, 结合setAppCachePath(String)使用。
+
+        webSetting.defaultTextEncodingName = "UTF-8" //设置默认的字符编码集，默认”UTF-8”.
+
         // webSetting.setDatabaseEnabled(true);
-        webSetting.domStorageEnabled = true
-        webSetting.loadsImagesAutomatically = true
-        webSetting.setGeolocationEnabled(true)
-        webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
-        val appCachePath: String = ObtainApplication.getApp()?.cacheDir?.absolutePath!!
-        webSetting.setAppCachePath(appCachePath)
-        webSetting.allowFileAccess = true
-        webSetting.setAppCacheEnabled(true)
-        webSetting.userAgentString = "User-Agent:Android"
-        webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
-        // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSetting.cacheMode = WebSettings.LOAD_NO_CACHE
+        // webSetting.setDatabaseEnabled(true);
+        webSetting.allowContentAccess = true
+        webSetting.domStorageEnabled = true //DOM存储API是否可用，默认false。
+
+        webSetting.loadsImagesAutomatically = true //WebView是否下载图片资源，默认为true
+
+        webSetting.setGeolocationEnabled(true) //定位是否可用，默认为true
+
+        webSetting.setAppCacheMaxSize(Long.MAX_VALUE) //设置应用缓存内容的最大值
+
+//        val appCachePath: String = ObtainApplication().mContext.getCacheDir().getAbsolutePath()
+//        webSetting.setAppCachePath(appCachePath) //设置应用缓存文件的路径
+
+        webSetting.allowFileAccess = true //是否允许访问文件
+
+        webSetting.userAgentString = null //设置应用缓存文件的路径置WebView的用户代理字符串。如果字符串为null或者empty，将使用系统默认值
+
+        webSetting.pluginState = WebSettings.PluginState.ON_DEMAND //在API18以上已废弃。未来将不支持插件
+
+        webSetting.cacheMode = WebSettings.LOAD_NO_CACHE //重写使用缓存的方式
+
         // 清除缓存和记录
         clearCache(true)
         clearHistory()

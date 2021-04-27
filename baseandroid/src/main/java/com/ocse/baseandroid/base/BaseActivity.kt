@@ -133,6 +133,8 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
                 ToastUtil.show("再按一次退出程序")
                 exitTime = System.currentTimeMillis()
             } else {
+                finish()
+                android.os.Process.killProcess(android.os.Process.myPid())
                 exitProcess(0)
             }
         }else{
@@ -207,6 +209,16 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         open fun setLeftBackVisible(): TitleBuilder {
             relBack.visibility = View.VISIBLE
             return this
+        }
+
+        open fun getBack(): View {
+            relBack.visibility = View.VISIBLE
+            return relBack
+        }
+
+        open fun getRight(): View {
+            tvRight.visibility = View.VISIBLE
+            return tvRight
         }
 
         open fun setRightTextGone(): TitleBuilder {

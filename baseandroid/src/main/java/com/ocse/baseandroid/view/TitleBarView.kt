@@ -48,6 +48,7 @@ class TitleBarView : RelativeLayout {
         val view = LayoutInflater.from(context).inflate(R.layout.layout_toolbar, this, true);
         val typedArray = context.obtainStyledAttributes(attributes, R.styleable.TitleBarView)
         ivBack = view.ivBack
+        ivBack .visibility= VISIBLE
         imgRight = view.imgRight
         tvTitle = view.tvTitle
         tvRight = view.tvRight
