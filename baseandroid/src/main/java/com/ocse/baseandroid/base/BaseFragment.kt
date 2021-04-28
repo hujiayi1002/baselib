@@ -110,11 +110,10 @@ abstract class BaseFragment<V : ViewDataBinding>(private val getBindView: Int) :
         }
     }
 
-    open fun showLoading() {
+    open fun loadingShow() {
         if (!loadingView.isShowing) {
             loadingView.show()
         }
-
     }
 
     open fun loadingDismiss() {

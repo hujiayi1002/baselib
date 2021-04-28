@@ -47,6 +47,7 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         dataBinding = DataBindingUtil.setContentView(this, layout)
         viewModelProvider = getViewModelProvider()
         loadingViewView = LoadingView.Builder(this).create()
+        BaseApplication.activities.add(this)
         TAG = localClassName
         initTitleBar("")
         initView()
