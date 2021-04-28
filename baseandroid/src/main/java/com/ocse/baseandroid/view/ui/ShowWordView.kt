@@ -2,6 +2,8 @@ package com.ocse.baseandroid.view.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -20,22 +22,32 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import okhttp3.*
 import java.io.File
 
-const val FILENAME = "fileName"
-const val URL = "url"
 
-class WordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
+
+class ShowWordView : AppCompatActivity(), TbsReaderView.ReaderCallback {
     private var url = ""
     private var fileName = ""
     private lateinit var loadingView: LoadingView
     private var mTbsReaderView: TbsReaderView? = null
 
+    companion object {
+        const val Path = "fileName"
+        const val Name = "url"
+        fun start(context: Context, name: String, path: String) {
+            val intent = Intent(context, ShowImageActivity::class.java)
+            intent.putExtra(Path, path)
+            intent.putExtra(Name, name)
+            context.startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_word_view_acivity)
         ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init()
-        intent.getStringExtra(FILENAME)?.let { fileName = it }
-        intent.getStringExtra(URL)?.let { url = it;downLoadFile() }
-        mTbsReaderView = TbsReaderView(this@WordViewActivity, this)
+        intent.getStringExtra(Name)?.let { fileName = it }
+        intent.getStringExtra(Path)?.let { url = it;downLoadFile() }
+        mTbsReaderView = TbsReaderView(this@ShowWordView, this)
         tvTitle.text = "$fileName"
         relBack.setOnClickListener { finish() }
         getPermission()

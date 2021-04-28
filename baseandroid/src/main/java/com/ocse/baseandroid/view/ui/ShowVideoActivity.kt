@@ -8,7 +8,6 @@ import android.view.View
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.base.BaseActivity
 import com.ocse.baseandroid.databinding.ActivityShowVideoBinding
-import com.ocse.baseandroid.utils.GlideEngine
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import java.io.File
@@ -20,7 +19,8 @@ class ShowVideoActivity : BaseActivity<ActivityShowVideoBinding>(R.layout.activi
     private var name = ""
 
     companion object {
-
+        const val Path = "path"
+        const val Name = "name"
         fun start(context: Context, name: String, path: String) {
             val intent = Intent(context, ShowVideoActivity::class.java)
             intent.putExtra(Path, path)

@@ -14,6 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+<include
+    android:id="@+id/toolbar"
+    layout="@layout/layout_toolbar" />
 
         <TextView
             android:id="@+id/textView"
@@ -23,7 +26,7 @@
             android:text="@{user.access_token}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <EditText
             android:id="@+id/text2"
@@ -50,7 +53,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.ocse.baseandroid.view.X5WebView
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

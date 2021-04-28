@@ -7,14 +7,15 @@ import com.ocse.baseandroid.base.BaseActivity
 import com.ocse.baseandroid.databinding.ActivityShowImageBinding
 import com.ocse.baseandroid.utils.GlideEngine
 
-const val Path = "path"
-const val Name = "name"
+
 
 class ShowImageActivity : BaseActivity<ActivityShowImageBinding>(R.layout.activity_show_image) {
     private var path = ""
     private var name = ""
 
     companion object {
+        const val Path = "path"
+        const val Name = "name"
         fun start(context: Context, name: String, path: String) {
             val intent = Intent(context, ShowImageActivity::class.java)
             intent.putExtra(Path, path)
