@@ -37,7 +37,7 @@ open class ShowWordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallb
         const val Path = "fileName"
         const val Name = "url"
         fun start(context: Context, name: String, path: String) {
-            val intent = Intent(context, ShowImageActivity::class.java)
+            val intent = Intent(context, ShowWordViewActivity::class.java)
             intent.putExtra(Path, path)
             intent.putExtra(Name, name)
             context.startActivity(intent)
