@@ -22,7 +22,6 @@ import com.ocse.baseandroid.view.LoadingView
 import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.TbsReaderView
 import kotlinx.android.synthetic.main.activity_word_view.*
-import kotlinx.android.synthetic.main.activity_word_view_acivity.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import okhttp3.*
 import java.io.File
