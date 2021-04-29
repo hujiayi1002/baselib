@@ -78,7 +78,7 @@ open class BaseApplication : Application() {
                 activities.remove(activity)
                 if (count == 0) {
                     isForeground = false
-                    Logger.e("onActivityDestroyed: " + activities.size)
+                    Logger.e("onActivityCreatedThenDestroyed: " + activities.size)
                     ToastUtil.show("当前APP已经不在前台，请谨慎操作")
                 }
             }

@@ -25,7 +25,7 @@
         <activity android:name=".view.ui.ShowVideoActivity" />
         <activity android:name=".view.ui.ShowImageActivity" />
         <activity android:name=".base.BaseWebActivity" />
-        <activity android:name=".view.ui.ShowWordView" />
+        <activity android:name=".view.ui.ShowWordViewActivity" />
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"

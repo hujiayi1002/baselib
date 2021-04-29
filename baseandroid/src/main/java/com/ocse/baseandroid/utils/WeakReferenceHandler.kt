@@ -7,11 +7,11 @@ import android.os.Message
 import java.lang.ref.WeakReference
 
 
-class WeakReferenceHandler(activity: Activity) :
-    Handler(Looper.getMainLooper()) {
-    private var mActivity: WeakReference<Activity> = WeakReference(activity)
-    override fun handleMessage(msg: Message) {
-        super.handleMessage(msg)
-        mActivity.get() ?: return
-    }
-}
+ open class WeakReferenceHandler(activity: Activity) :
+     Handler(Looper.getMainLooper()) {
+     private var mActivity: WeakReference<Activity> = WeakReference(activity)
+     override fun handleMessage(msg: Message) {
+         super.handleMessage(msg)
+         mActivity.get() ?: return
+     }
+ }

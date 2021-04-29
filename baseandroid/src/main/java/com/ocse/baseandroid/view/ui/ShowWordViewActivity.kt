@@ -6,7 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -15,16 +17,18 @@ import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.DownLoadFileUtils
 import com.ocse.baseandroid.utils.PermissionUtils
+import com.ocse.baseandroid.utils.WeakReferenceHandler
 import com.ocse.baseandroid.view.LoadingView
+import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.TbsReaderView
+import kotlinx.android.synthetic.main.activity_word_view.*
 import kotlinx.android.synthetic.main.activity_word_view_acivity.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import okhttp3.*
 import java.io.File
 
 
-
-class ShowWordView : AppCompatActivity(), TbsReaderView.ReaderCallback {
+open class ShowWordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
     private var url = ""
     private var fileName = ""
     private lateinit var loadingView: LoadingView
@@ -43,11 +47,11 @@ class ShowWordView : AppCompatActivity(), TbsReaderView.ReaderCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_word_view_acivity)
+        setContentView(R.layout.activity_word_view)
         ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).init()
         intent.getStringExtra(Name)?.let { fileName = it }
         intent.getStringExtra(Path)?.let { url = it;downLoadFile() }
-        mTbsReaderView = TbsReaderView(this@ShowWordView, this)
+        mTbsReaderView = TbsReaderView(this@ShowWordViewActivity, this)
         tvTitle.text = "$fileName"
         relBack.setOnClickListener { finish() }
         getPermission()
@@ -100,7 +104,8 @@ class ShowWordView : AppCompatActivity(), TbsReaderView.ReaderCallback {
     }
 
 
-    var mHandler: Handler = object : Handler() {
+    var mHandler: Handler = @SuppressLint("HandlerLeak")
+    object : WeakReferenceHandler(this) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 6 -> {
@@ -133,9 +138,16 @@ class ShowWordView : AppCompatActivity(), TbsReaderView.ReaderCallback {
         if (result) {
             mTbsReaderView!!.openFile(bundle)
         } else {
-            tvNoType.visibility = View.VISIBLE
-//            QbSdk.openFileReader(this,renameFile.path,null
-//            ) { p0 -> Log.e("TAG", "onReceiveValue: $p0" ) }
+            QbSdk.openFileReader(this, renameFile.path, null
+            ) { s ->
+                Log.e("TAG", "onReceiveValue:  $s")
+                if (s == "fileReaderClosed") {
+                    finish()
+                } else if (s == "filepath error") {
+                    tvNoType.visibility = View.VISIBLE
+                    QbSdk.clearAllWebViewCache(this, true)
+                }
+            }
         }
     }
 

@@ -8,9 +8,9 @@ import androidx.lifecycle.Observer
 import com.ocse.androidbaselib.databinding.ActivityMainBinding
 import com.ocse.androidbaselib.model.BaseModel
 import com.ocse.baseandroid.base.BaseActivity
+import com.ocse.baseandroid.base.BaseFragment
 import com.ocse.baseandroid.utils.GlideEngine
 import com.ocse.baseandroid.utils.ToastUtil
-import com.ocse.baseandroid.view.LoadingView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -25,10 +25,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             it?.let {
                 loge("ActivityA中接收user：${it.access_token}")
-                dataBinding?.user = it
-
+                dataBinding.user = it
             }
-
         })
 
         text2.setOnEditorActionListener { v, actionId, event ->
@@ -69,9 +67,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
         }
+
+        setMainTextView("123")
         button.setOnClickListener {
             ToastUtil.show("1234")
-        val intent = Intent(this, MainActivity2::class.java)
+            val intent = Intent(this, MainActivity2::class.java)
             // create the transition animation - the images in the layouts
             // of both activities are defined with android:transitionName="robot"
             val options = ActivityOptions
