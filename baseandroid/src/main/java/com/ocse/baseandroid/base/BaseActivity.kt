@@ -173,7 +173,6 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         if (!loadingViewView.isShowing) {
             loadingViewView.show()
         }
-
     }
 
     open fun loadingDismiss() {

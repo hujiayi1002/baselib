@@ -55,7 +55,7 @@ open class BaseApplication : Application() {
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-
+                activities.add(activity)
             }
 
             override fun onActivityStarted(activity: Activity) {
@@ -63,7 +63,6 @@ open class BaseApplication : Application() {
             }
 
             override fun onActivityResumed(activity: Activity) {
-                activities.add(activity)
                 Logger.e("onActivityCreated: " + activity.localClassName)
                 Logger.e("onActivityCreated: " + activities.size)
                 count++
@@ -75,7 +74,6 @@ open class BaseApplication : Application() {
 
             override fun onActivityStopped(activity: Activity) {
                 count--
-                activities.remove(activity)
                 if (count == 0) {
                     isForeground = false
                     Logger.e("onActivityCreatedThenDestroyed: " + activities.size)
@@ -84,12 +82,11 @@ open class BaseApplication : Application() {
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-
+                activities.remove(activity)
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
             }
-
         })
 
     }
@@ -127,5 +124,12 @@ open class BaseApplication : Application() {
         // 方式2：System.exit()
         // System.exit() = Java中结束进程的方法：关闭当前JVM虚拟机
         exitProcess(0);
+    }
+
+    /**
+     * 退出应用
+     */
+    open fun finishAllActivity() {
+
     }
 }

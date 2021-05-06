@@ -55,7 +55,6 @@ open class ShowWordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallb
         relBack.setOnClickListener { finish() }
         getPermission()
         initView()
-
     }
 
     private fun initView() {
@@ -71,8 +70,6 @@ open class ShowWordViewActivity : AppCompatActivity(), TbsReaderView.ReaderCallb
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
         )
-
-
     }
 
     private fun downLoadFile() {

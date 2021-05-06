@@ -1,4 +1,4 @@
-package com.ocse.baseandroid.retrofit.base
+package com.ocse.baseandroid.net.base
 
 import android.accounts.AccountsException
 import android.accounts.NetworkErrorException
@@ -26,10 +26,6 @@ abstract class BaseObserver<T>(compositeDisposable: CompositeDisposable) :
 
     init {
         compositeDisposable.add(this)
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onNext(t: T) {

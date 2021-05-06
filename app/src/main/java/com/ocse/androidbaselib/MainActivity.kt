@@ -3,12 +3,12 @@ package com.ocse.androidbaselib
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import com.ocse.androidbaselib.databinding.ActivityMainBinding
 import com.ocse.androidbaselib.model.BaseModel
 import com.ocse.baseandroid.base.BaseActivity
-import com.ocse.baseandroid.base.BaseFragment
 import com.ocse.baseandroid.utils.GlideEngine
 import com.ocse.baseandroid.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +28,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 dataBinding.user = it
             }
         })
+        vm.ss.observe(this, Observer {
 
+            it?.let {
+                loge("ActivityA中接收user：${it.access_token}")
+                dataBinding.user = it
+            }
+        })
         text2.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 ToastUtil.show("开始搜索")
@@ -46,6 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 //            val dialog = loadingView.create()
 //            dialog.show()
             vm.user()
+            vm.ss()
 //            val bottomSheetDialog = ChooseTakeBottomSheetDialog(this@MainActivity)
 //            bottomSheetDialog.show(supportFragmentManager,"")
 //            bottomSheetDialog.setTakePop(object :ChooseTakeBottomSheetDialog.ChooseTake{
