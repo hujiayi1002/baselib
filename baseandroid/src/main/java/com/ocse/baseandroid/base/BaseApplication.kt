@@ -63,22 +63,22 @@ open class BaseApplication : Application() {
             }
 
             override fun onActivityResumed(activity: Activity) {
-                Logger.e("onActivityCreated: " + activity.localClassName)
-                Logger.e("onActivityCreated: " + activities.size)
                 count++
+                Logger.e("onActivityCreated: " + count)
+
             }
 
             override fun onActivityPaused(activity: Activity) {
-
-            }
-
-            override fun onActivityStopped(activity: Activity) {
                 count--
                 if (count == 0) {
                     isForeground = false
-                    Logger.e("onActivityCreatedThenDestroyed: " + activities.size)
+                    Logger.e("onActivityCreated: " + count)
                     ToastUtil.show("当前APP已经不在前台，请谨慎操作")
                 }
+            }
+
+            override fun onActivityStopped(activity: Activity) {
+
             }
 
             override fun onActivityDestroyed(activity: Activity) {

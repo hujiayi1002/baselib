@@ -14,7 +14,7 @@ class BaseModel : BaseViewModel() {
     val ss by lazy { MutableLiveData<UserBean>() }
 
     fun user() {
-        val subscribe = instance.login("admin", "123456")
+       instance.login("admin", "123456")
             .subscribe(object : BaseObserver<UserBean>(compositeDisposable) {
                 override fun onError(e: Throwable) {
                     super.onError(e)
