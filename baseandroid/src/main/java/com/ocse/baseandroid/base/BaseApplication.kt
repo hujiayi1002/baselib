@@ -5,7 +5,6 @@ import android.app.Application
 import android.os.Bundle
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.utils.Logger
-import com.ocse.baseandroid.utils.ToastUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
@@ -21,7 +20,7 @@ import kotlin.system.exitProcess
 open class BaseApplication : Application() {
 
     companion object {
-        var activities = ArrayList<Activity>()
+        val activities = Stack<Activity>()
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { this }
     }
 
@@ -59,26 +58,26 @@ open class BaseApplication : Application() {
             }
 
             override fun onActivityStarted(activity: Activity) {
-
+                count++
+                Logger.e("onActivityCreated: " + count)
             }
 
             override fun onActivityResumed(activity: Activity) {
-                count++
-                Logger.e("onActivityCreated: " + count)
+
 
             }
 
             override fun onActivityPaused(activity: Activity) {
-                count--
-                if (count == 0) {
-                    isForeground = false
-                    Logger.e("onActivityCreated: " + count)
-                    ToastUtil.show("当前APP已经不在前台，请谨慎操作")
-                }
+
             }
 
             override fun onActivityStopped(activity: Activity) {
-
+                count--
+                if (count <= 0) {
+                    isForeground = false
+                    Logger.e("onActivityCreated: " + count)
+//                    ToastUtil.show("当前APP已经不在前台，请谨慎操作")
+                }
             }
 
             override fun onActivityDestroyed(activity: Activity) {
