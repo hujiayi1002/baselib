@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.gyf.immersionbar.ImmersionBar
 import com.ocse.baseandroid.R
-import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.utils.ToastUtil
 import com.ocse.baseandroid.view.LoadingView
 import io.reactivex.disposables.CompositeDisposable
@@ -30,7 +29,6 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
     val layout = getLayoutId
     lateinit var dataBinding: V
     private var mCompositeDisposable = CompositeDisposable()
-    var TAG = ""
     val mContext by lazy { this@BaseActivity }
     var isNeedDoubleExit = false
     private var exitTime = 0L
@@ -47,7 +45,6 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         dataBinding = DataBindingUtil.setContentView(this, layout)
         viewModelProvider = getViewModelProvider()
         loadingViewView = LoadingView.Builder(this).create()
-        TAG = localClassName
         initTitleBar("")
         initView()
         initData()
@@ -157,7 +154,7 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
      * @return
      */
     open fun <T : ViewModel> get(clazz: Class<T>): T {
-        return viewModelProvider!![clazz]
+        return viewModelProvider[clazz]
     }
 
     /**
@@ -179,21 +176,15 @@ abstract class BaseActivity<V : ViewDataBinding>(getLayoutId: Int) :
         loadingViewView.dismiss()
     }
 
-    open fun loge(message: String) {
-        var tag = "Tag:${localClassName}"
-        Logger.e(tag)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (dataBinding != null) {
-            dataBinding?.unbind()
-            mCompositeDisposable.clear()
-        }
+        dataBinding.unbind()
+        mCompositeDisposable.clear()
     }
 
 
-    inner class TitleBuilder(title: String) {
+    open inner class TitleBuilder(title: String) {
         private val myTitle = title
         open fun setTitle(): TitleBuilder {
             tvTitle.text = myTitle

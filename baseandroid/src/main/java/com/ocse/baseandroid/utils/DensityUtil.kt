@@ -47,7 +47,7 @@ object DensityUtil {
      * @param
      * @return
      */
-    private   val screenWidth: Int
+       val screenWidth: Int
         get() {
             val wm = ObtainApplication.getApp()!!
                 .getSystemService(Context.WINDOW_SERVICE) as WindowManager

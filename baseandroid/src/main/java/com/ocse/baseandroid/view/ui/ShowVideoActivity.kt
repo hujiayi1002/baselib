@@ -31,12 +31,13 @@ class ShowVideoActivity : BaseActivity<ActivityShowVideoBinding>(R.layout.activi
 
     override fun initView() {
         path =
-            if (intent.getStringExtra(Path).isNullOrEmpty()) "" else intent.getStringExtra(Path).toString()
+            if (intent.getStringExtra(Path).isNullOrEmpty()) "" else intent.getStringExtra(Path)
+                .toString()
         name =
-            if (intent.getStringExtra(Name).isNullOrEmpty()) "视频" else intent.getStringExtra(Name).toString()
-        name?.let {
-            setMainTextView(it)
-        }
+            if (intent.getStringExtra(Name).isNullOrEmpty()) "视频" else intent.getStringExtra(Name)
+                .toString()
+
+        setMainTextView(name)
         //增加title
         dataBinding?.videoPlayer?.titleTextView?.visibility = View.VISIBLE
         //设置返回键

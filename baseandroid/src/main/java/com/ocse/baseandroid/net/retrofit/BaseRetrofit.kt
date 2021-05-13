@@ -31,7 +31,7 @@ open class BaseRetrofit {
 
     private fun setRetrofit(): Retrofit? {
         uRL= ApiRetrofitManager.getInitUrl()
-        Logger.e("setRetrofit: $uRL")
+//        Logger.e("setRetrofit: $uRL")
         if (uRL.isNullOrEmpty()) {
             throw Exception("请先设置BaseUrl")
         }

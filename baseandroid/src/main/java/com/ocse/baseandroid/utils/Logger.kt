@@ -12,40 +12,41 @@ class Logger {
         fun setTag(tag: String) {
             TAG = tag
         }
+
         fun setLoggerEnable(isEnable: Boolean) {
             enable = isEnable
         }
+
         fun e(msg: String?) {
             if (enable) {
                 Log.e(TAG, "_________________________________________________________________")
-//                val segmentSize = (3.7 * 1024).toInt()//一次只能打印4K长度,所以先打印3k
-//                var index = 0
-//                msg?.run {
-//                    while (msg.length > segmentSize) { // 循环分段打印日志
-//                        val logContent = msg.substring(0, segmentSize)
-//                        msg.replace(logContent, "")
-//                        Log.e(TAG, logContent)
-//                    }
                 Log.e(TAG, "$msg")
-                }
             }
+        }
 
-            fun d(msg: String?) {
-                if (BuildConfig.DEBUG&&!msg.isNullOrEmpty()) {
-                    Log.d(TAG, "_________________________________________________________________")
-                    Log.d(TAG, "" + msg)
-                }
-
+        fun e(tag: String, msg: String?) {
+            if (enable) {
+                Log.e(TAG, "_________________________________________________________________")
+                Log.e(tag, "$msg")
             }
+        }
 
-            fun i(msg: String?) {
-                if (BuildConfig.DEBUG&&!msg.isNullOrEmpty()) {
-                    Log.i(TAG, "_________________________________________________________________")
-                    Log.i(TAG, "" + msg)
-                }
-
+        fun d(msg: String?) {
+            if (BuildConfig.DEBUG && !msg.isNullOrEmpty()) {
+                Log.d(TAG, "_________________________________________________________________")
+                Log.d(TAG, "" + msg)
             }
 
         }
+
+        fun i(msg: String?) {
+            if (BuildConfig.DEBUG && !msg.isNullOrEmpty()) {
+                Log.i(TAG, "_________________________________________________________________")
+                Log.i(TAG, "" + msg)
+            }
+
+        }
+
+    }
 //    }
 }

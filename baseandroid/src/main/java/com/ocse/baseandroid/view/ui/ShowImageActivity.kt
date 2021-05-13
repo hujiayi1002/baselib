@@ -35,9 +35,8 @@ class ShowImageActivity : BaseActivity<ActivityShowImageBinding>(R.layout.activi
         name =
             if (intent.getStringExtra(Name).isNullOrEmpty()) "图片" else intent.getStringExtra(Name)
                 .toString()
-        name?.let {
-            setMainTextView(it)
-        }
-        GlideEngine.instance.loadPhoto(path, dataBinding?.photoView)
+
+        setMainTextView(name)
+        GlideEngine.instance.loadPhoto(path, dataBinding.photoView)
     }
 }

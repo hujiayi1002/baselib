@@ -74,21 +74,33 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
     }
 
     private fun openFileChooseProcess() {
-        EasyPhotos.createAlbum(this, false, GlideEngine.instance)
+        EasyPhotos.createAlbum(this@BaseWebActivity, false, true, GlideEngine.instance)
             .start(object : SelectCallback() {
                 override fun onResult(photos: ArrayList<Photo>, isOriginal: Boolean) {
                     onReceiveValue(photos[0].path)
+                }
+
+                /**
+                 * 什么都没选，取消选择回调
+                 */
+                override fun onCancel() {
                 }
             })
 
     }
 
     private fun openTakePhotoChooseProcess() {
-        EasyPhotos.createCamera(this)//参数说明：上下文
+        EasyPhotos.createCamera(this, true)//参数说明：上下文
             .setFileProviderAuthority("${ObtainApplication.getApp().packageName}.fileprovider")//参数说明：见下方`FileProvider的配置`
             .start(object : SelectCallback() {
                 override fun onResult(photos: ArrayList<Photo>, isOriginal: Boolean) {
                     onReceiveValue(photos[0].path)
+                }
+
+                /**
+                 * 什么都没选，取消选择回调
+                 */
+                override fun onCancel() {
                 }
             })
     }

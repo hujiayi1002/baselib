@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.ocse.androidbaselib.databinding.ActivityMainBinding
 import com.ocse.androidbaselib.model.BaseModel
 import com.ocse.baseandroid.base.BaseActivity
+import com.ocse.baseandroid.utils.DensityUtil
 import com.ocse.baseandroid.utils.GlideEngine
 import com.ocse.baseandroid.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,24 +25,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         vm.userMutableLiveData.observe(this, Observer {
 
             it?.let {
-                loge("ActivityA中接收user：${it.access_token}")
                 dataBinding.user = it
             }
         })
         vm.ss.observe(this, Observer {
 
             it?.let {
-                loge("ActivityA中接收user：${it.access_token}")
                 dataBinding.user = it
             }
         })
         text2.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 ToastUtil.show("开始搜索")
-                true
             }
             false
         }
+        DensityUtil.screenWidth
         GlideEngine.instance.loadPhotoCircle("https://gimg2.baidu.com/image_search/src=http%3A%2F%2F1812.img.pp.sohu.com.cn%2Fimages%2Fblog%2F2009%2F11%2F18%2F18%2F8%2F125b6560a6ag214.jpg&refer=http%3A%2F%2F1812.img.pp.sohu.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621760668&t=4a7becb01298bd57260b518901c65f32", 0, imageView)
         val sd = ArrayList<String>()
         repeat(sd.size)
