@@ -14,6 +14,7 @@ import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.utils.NetworkUtil
 import com.ocse.baseandroid.utils.ObtainApplication
 import com.ocse.baseandroid.utils.ToastUtil
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,6 +27,8 @@ import java.net.SocketException
  * 基础ViewModel类，管理LiveData
  * */
 open class BaseViewModel : ViewModel() {
+
+    open val compositeDisposable by lazy { CompositeDisposable() }
 
     //异常LiveData
     val errorLiveData = SingleLiveData<Throwable>()
@@ -78,4 +81,8 @@ open class BaseViewModel : ViewModel() {
         return reason.toString()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }
