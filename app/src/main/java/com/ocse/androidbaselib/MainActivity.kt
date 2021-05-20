@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         isNeedDoubleExit = true
         vm = get(BaseModel::class.java)
         vm.userMutableLiveData.observe(this, Observer {
-
+            Log.e("TAG", "onCreate: ,${it == null} ")
             it?.let {
                 dataBinding.user = it
             }

@@ -36,7 +36,6 @@ private constructor() : ImageEngine {
         } else {
             loadPhoto(path, imageView)
         }
-
     }
 
     /**

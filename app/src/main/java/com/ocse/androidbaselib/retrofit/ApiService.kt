@@ -20,6 +20,10 @@ interface ApiService {
     @POST("oauth/token")
     fun login(@FieldMap map: Map<String, @JvmSuppressWildcards Any>): Observable<UserBean>
 
+    @FormUrlEncoded
+    @POST("oauth/token")
+    suspend fun loginCn(@FieldMap map: Map<String, @JvmSuppressWildcards Any>): UserBean
+
     /**
      * 登录
      * @param map

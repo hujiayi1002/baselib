@@ -8,7 +8,7 @@ import io.reactivex.Observable
  * @author hujiayi
  */
 
-class ActivityOnResult(activity: FragmentActivity) {
+class ActivityForResult(activity: FragmentActivity) {
     private val mAvoidOnResultFragment: AvoidOnResultFragment
     private fun getAvoidOnResultFragment(activity: FragmentActivity): AvoidOnResultFragment {
         var avoidOnResultFragment = findAvoidOnResultFragment(activity)

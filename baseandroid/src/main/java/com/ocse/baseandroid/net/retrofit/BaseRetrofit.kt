@@ -1,11 +1,9 @@
-package com.ocse.baseandroid.net.base
+package com.ocse.baseandroid.net.retrofit
 
-import com.ocse.baseandroid.net.retrofit.ApiRetrofitManager
 import com.ocse.baseandroid.utils.Logger
 import com.ocse.baseandroid.utils.SharePreferenceUtil.getString
 import com.ocse.baseandroid.utils.ToastUtil.Companion.show
 import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
@@ -137,7 +135,7 @@ open class BaseRetrofit {
          */
         var okHttpClientBuilder: OkHttpClient.Builder? = null
 
-        fun getInstance():BaseRetrofit {
+        fun getInstance(): BaseRetrofit {
             if (baseRetrofit == null) {
                 synchronized(BaseRetrofit::class.java) {
                     if (baseRetrofit == null) {
@@ -147,29 +145,6 @@ open class BaseRetrofit {
                 }
             }
             return baseRetrofit!!
-        }
-
-//        @JvmStatic
-//        val instance: BaseRetrofit
-//            get() {
-//                if (baseRetrofit == null) {
-//                    synchronized(BaseRetrofit::class.java) {
-//                        if (baseRetrofit == null) {
-//                            baseRetrofit = BaseRetrofit()
-//                        }
-//                    }
-//                }
-//                return baseRetrofit!!
-//            }
-
-        /**
-         * 线程切换
-         *
-         * @param <T>
-         * @return
-        </T> */
-        fun <T> switchSchedulers(): ObservableTransformer<T, T> {
-            return ObservableTransformer { upstream -> switchSchedulers(upstream) }
         }
 
         /**

@@ -11,7 +11,7 @@ import com.huantansheng.easyphotos.callback.SelectCallback
 import com.huantansheng.easyphotos.models.album.entity.Photo
 import com.ocse.baseandroid.R
 import com.ocse.baseandroid.databinding.ActivityBaseWebBinding
-import com.ocse.baseandroid.js.JSScript
+import com.ocse.baseandroid.js.BaseJSScript
 import com.ocse.baseandroid.utils.GlideEngine
 import com.ocse.baseandroid.utils.ObtainApplication
 import com.ocse.baseandroid.view.ChooseTakeBottomSheetDialog
@@ -32,7 +32,7 @@ abstract class BaseWebActivity : BaseActivity<ActivityBaseWebBinding>(R.layout.a
     abstract fun setUrl(): String
     override fun initView() {
         url = setUrl()
-        dataBinding.x5Web.addJavascriptInterface(JSScript(), "android")
+        dataBinding.x5Web.addJavascriptInterface(BaseJSScript(), "android")
         loadingShow()
         dataBinding.x5Web.webViewClient = object : WebViewClient() {
             override fun onPageFinished(p0: WebView?, p1: String) {
